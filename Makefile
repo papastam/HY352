@@ -12,7 +12,11 @@ CFLAGS = -I$(INCD) --std=c++17 -ggdb -Werror #TODO: remove -ggdb in release
 
 PERROR = $(shell stat --format=%s .compile_errors.txt)
 
-.PHONY: dirs clear_screen clean build
+.PHONY: dirs clean build
+
+run: build
+	@printf "\e[1mrunning:\e[0m \e[1;33m%s\e[0m\n" $(BIND)/$(POKOUT)
+	@$(BIND)/$(POKOUT).out
 
 build: dirs $(BIND)/$(POKOUT) 
 
