@@ -1,77 +1,5 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-typedef enum type{
-    Electric,
-    Fire,
-    Water,
-    Grass
-} pok_Type;
-
-// ------------------- Objects -------------------
-
-class Pokemons {
-    private:
-        Pokemon* pokemons[6];
-        int count;
-    public:
-        Pokemons(){
-            count = 0;
-        }
-        ~Pokemons(){
-            for(int i = 0; i < count; i++){
-                delete pokemons[i];
-            }
-        }
-        void addPokemon(Pokemon* pokemon){
-            pokemons[count] = pokemon;
-            count++;
-        }
-};
-
-class Pokemon {
-    private:
-        char name[20];
-        int hp;
-        pok_Type type;
-        // Ability abilities[4];
-    
-    public:
-        Pokemon(char* _name, int _hp, pok_Type _type){
-            strcpy(name, _name);
-            hp = _hp;
-            type = _type;
-        }
-        
-        Pokemon(){
-            strcpy(name, "Default");
-            hp = 10;
-            type = Electric;
-        };
-
-        ~Pokemon(){
-            printf("Pokemon %s is dead!\n", name);
-        };
-    
-        // char*       getName()   {return name;}
-        // int         getHp()     {return hp;}
-        // pok_Type    getType()   {return type;}
-};
-class Ability {
-    private:
-        char name[20];
-        // virtual int action() = 0;
-    public:
-        Ability(char* _name, int (*_action)()){
-            strcpy(name, _name);
-            // action = _action;
-        }
-        ~Ability();
-
-        char* getName()     {return name;}
-        // int (*getAction())(){return action;}
-};
+#include "obj.h"
+#include <iostream>
 
 // -------------------- Macros -------------------
 
@@ -82,8 +10,68 @@ class Ability {
 
 #define CREATE  
 #define POKEMON pokemons->addPokemon(new Pokemon
-#define NAME name
-#define TYPE type
-#define HP hp
+#define POKEMONS
+#define NAME name=
+#define TYPE type=
+#define HP hp=
+
+// UNIMPLEMENTED
+
+#define ABILITY
+#define ABILITIES
+#define ACTION
+#define START
+#define END
+
+// ------------------ Actions ------------------
+#define ATTACKER
+#define DEFENDER
+#define DAMAGE
+#define HEAL
+#define POKEBALL
+#define GET_HP(x) x->getHp()
+#define GET_NAME(x) x->getName()
+#define GET_TYPE(x) x->getType()
+#define IS_IN_POKEBALL(x) x->isInPokeball()
+
+// Logical operators
+// AND(GET_TYPE(ATTACKER) == "Electric", GET_HP(ATTACKER) > 20)
+#define AND(x, y) x && y
+// OR(GET_TYPE(ATTACKER) == "Electric", GET_HP(ATTACKER) > 20)
+#define OR(x, y) x || y
+// NOT(GET_TYPE(ATTACKER) == "Electric")
+#define NOT(x) !x
+
+// Flow control
+// IF(GET_TYPE(ATTACKER) == "Electric") DO
+//     DAMAGE DEFENDER 20
+// END
+#define IF if(
+#define DO ){
+#define ELSE } else {
+#define ELSE_IF } else if(
+#define END }
+
+// Loops
+// FOR 5 ROUNDS DO
+//     DAMAGE DEFENDER 20
+// END
+#define FOR for(int i = 0; i <
+#define ROUNDS ; i++)
+#define DO {
+// #define END } already defined
+
+// After
+// AFTER 5 ROUNDS DO
+//     POKEBALL DEFENDER ---a
+// END
+#define AFTER for(int i = 0; i < 
+#define ROUNDS ; i++)
+#define DO {}
+
+// Print
+// SHOW GET_NAME(ATTACKER)
+#define SHOW std::cout <<
+
 
 #define PRINT_HELLO printf("Hello World!\n");
