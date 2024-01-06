@@ -6,32 +6,30 @@
 
 // Commands that need to be executed before each command
 #define PRE_EXEC ;\
-    if(temp_pokedex.getCount()!=0){ \
-        pokedex->addPokemon(temp_pokedex); \
+    if(temp_pokedex.getCount() != 0){ \
+        pokedex.addPokemon(&temp_pokedex); \
     }else if(temp_pokemon != nullptr){ \
-        pokedex->addPokemon(temp_pokemon); \
+        pokedex.addPokemon(temp_pokemon); \
     } \
     temp_pokemon = nullptr;
 
 #define CLEAR_MEMORY ;\
-    delete pokedex; \
-    delete temp_pokemon;
 
 // -------------------- Macros -------------------
 
 #define BEGIN_GAME \
     int main(int argc, char *argv[]) {\
     std::cout << "---------- Pokemon game for HY352 ----------" << std::endl;\
-    Pokedex* pokedex = new Pokedex(true);\
+    Pokedex pokedex(true);\
+    Pokedex temp_pokedex(false);\
     Pokemon* temp_pokemon = nullptr;\
-    Pokedex temp_pokedex = Pokedex(false);\
 
 #define END_GAME \
     ;\
     CLEAR_MEMORY;\
-    std::cout << "---------- End of pokemon game ------------" << std::endl;\
+    std::cout << "----------- End of pokemon game ------------" << std::endl;\
     return 0; \
-    } 
+    }
 
 #define CREATE PRE_EXEC;
 #define POKEMON temp_pokemon = new Pokemon
