@@ -18,6 +18,10 @@ run: build
 	@printf "\e[1mrunning:\e[0m \e[1;33m%s\e[0m\n" $(BIND)/$(POKOUT)
 	@$(BIND)/$(POKOUT).out
 
+db: build
+	@printf "\e[1mrunning:\e[0m \e[1;33m%s\e[0m\n" $(BIND)/$(POKOUT)
+	@gdb $(BIND)/$(POKOUT).out
+
 build: dirs $(BIND)/$(POKOUT) 
 
 dirs:
