@@ -2,38 +2,30 @@
 
 BEGIN_GAME
     CREATE POKEMON{
-        NAME: "papastam",
+        NAME: "Pikachu",
         TYPE: "Electric",
-        HP: 10
-    }) // solve how to remove parenthesis
+        HP: 100
+    }
 
     // CREATE POKEMONS[
     //     POKEMON{
     //         NAME: "papastam",
     //         TYPE: "Electric",
     //         HP: 10
-    //     },
-    //     POKEMON{
-    //         NAME: "papastam",
-    //         TYPE: "Electric",
-    //         HP: 10
     //     }
-    // ])
+    // ]
 
-    // SHOW pokemons->getPokemon(0)->getName() << std::endl
-
-
-;pokemon_list->addPokemon(Pokemon* = [Pokemon{"name", "Electric", 10}]);
-    //     Pokemon{
-    //         "papastam",
-    //         "Electric",
-    //         10
-    //     },
-    //     Pokemon{
-    //         "papastam",
-    //         "Electric",
-    //         10}
-    //     ]
-    // )
+    CREATE POKEMONS[
+        POKEMON{
+            NAME: "papastam",
+            TYPE: "Electric",
+            HP: 10
+        }
+    ]
+    ;std::cout << temp_pokedex.getCount() << std::endl
+    
+    SHOW *pokedex
+    ;std::cout << temp_pokedex.getCount() << std::endl
+    SHOW temp_pokedex
 
 END_GAME

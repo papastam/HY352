@@ -1,6 +1,16 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include <stdarg.h>
+#include <iostream>
+
+#define POKEDEX_ARRAY_SIZE 20
+#define POKEMON_NAME_SIZE 20
+
+// Declarations
+class Pokemon;
+class Pokedex;
+class Ability;
 
 typedef enum e_type{
     Electric,
@@ -25,17 +35,29 @@ pok_Type strToType(const char* str){
     }
 }
 
+// info print function with variadic arguments
+void info(const char* format, ...){
+    va_list args;
+    va_start(args, format);
+    printf("INFO: ");
+    vprintf(format, args);
+    printf("\n");
+    va_end(args);
+}
+
 // ------------------- Objects -------------------
 
 class Pokemon {
     private:
-        char name[20];
+        char name[POKEMON_NAME_SIZE];
         int hp;
         pok_Type type;
         bool in_pokeball;
         // Ability abilities[4];
     
     public:
+        // ------------------- Constructors -------------------
+
         Pokemon(const char* _name, const char* _type, int _hp){
             strcpy(name, _name);
             type = strToType(_type);
@@ -52,49 +74,145 @@ class Pokemon {
         ~Pokemon(){
             printf("Pokemon %s is dead!\n", name);
         }
-    
+
+        // -------------------- Operators --------------------
+
+        // ----- , -----
+        // Pokedex operator,(Pokemon* pokemon){
+        //     Pokedex* temp = new Pokedex();
+        //     temp->addPokemon(this);
+        //     temp->addPokemon(pokemon);
+        //     return *temp;
+        // }
+
+        // ------------------- Functions -------------------
+
         char*       getName()       {return name;}
         int         getHp()         {return hp;}
         pok_Type    getType()       {return type;}
         bool        isInPokeball()  {return in_pokeball;}
 };
-class Pokemons {
+
+class Pokedex {
     private:
-        Pokemon* pokemons[20];
+        bool main_pokedex;
+        Pokemon* pokedex[POKEDEX_ARRAY_SIZE];
         int count;
 
     public:
-        Pokemons(){
+        // ------------------- Constructors -------------------
+        Pokedex(bool is_main){
+            main_pokedex = is_main;
             count = 0;
         }
 
-        ~Pokemons(){
+        // Ignore the parameter
+        // this is because the object is going to be later filled
+        // by the overloaded [] operator and then assigned to temp_pokedex
+        // later on the temp is going to be added to the main pokedex
+        Pokedex(Pokedex* _pokedex){
+            main_pokedex = false;
+            count = 0;
+        }
+
+        ~Pokedex(){
             for(int i = 0; i < count; i++){
-                delete pokemons[i];
+                delete pokedex[i];
             }
         }
+ 
+        // -------------------- Operators --------------------
+
+        // ----- [] -----
+        Pokedex operator[](Pokemon* pokemon){
+            this->addPokemon(pokemon);
+            return this;
+        }
+
+        // overload to add a list of pokemons
+        Pokedex operator[](Pokedex* _pokedex){
+            this->addPokemon(_pokedex);
+            return *this;
+        }
+
+        // overload to get a pokemon by name
+        Pokemon* operator[](char* name){
+            for(int i = 0; i < count; i++){
+                if(strcmp(pokedex[i]->getName(), name) == 0){
+                    return pokedex[i];
+                }
+            }
+            return nullptr;
+        }
+
+        // overload to get a pokemon by index
+        Pokemon* operator[](int index){
+            return pokedex[index];
+        }
+
+        // ----- , -----
+        Pokedex operator,(Pokedex* _pokedex){ //possibly will remain unused
+            this->addPokemon(_pokedex);
+            return *this;
+        }
+
+        Pokedex operator,(Pokemon pokemon){
+            this->addPokemon(&pokemon);
+            return *this;
+        }
+
+        // ----- << -----
+        friend std::ostream& operator<<(std::ostream& os, const Pokedex pokedex){
+            os << "Pokedex:" << std::endl;
+            for(int i = 0; i < pokedex.count; i++){
+                os << "  - " << pokedex.pokedex[i]->getName() << std::endl;
+            }
+            return os;
+        }
+
+
+        // -------------------- Functions --------------------
         
-        //Two add functions overloaded to support both single and multiple pokemon
+        //Two add functions overloaded to support both single 
         void addPokemon(Pokemon* pokemon){
-            std::cout << "ADD1" << std::endl;
-            pokemons[count] = pokemon;
+            if(!main_pokedex){
+                info("Adding pokemon %s to temp pokedex", pokemon->getName());
+            } else {
+                info("Adding pokemon %s to main pokedex", pokemon->getName());
+            }
+            if((*this)[pokemon->getName()] != nullptr){
+                info("Pokemon %s already exists in pokedex", pokemon->getName());
+                return;
+            }
+            pokedex[count] = pokemon;
             count++;
         }
 
-        void addPokemon(Pokemon* pokemon_array[]){
-            std::cout << "ADD2" << std::endl;
+        // and multiple pokemon additions
+        void addPokemon(Pokedex _pokedex){
+            info("Adding whole pokedex to current pokedex");
             int _count = 0;
-            while(pokemon_array[_count] != NULL){
-                pokemons[_count] = pokemon_array[count];
+            for(int i = 0; i < _pokedex.getCount(); i++){
+                if((*this)[_pokedex[i]->getName()] != nullptr){
+                    info("Pokemon %s already exists in pokedex", _pokedex[i]->getName());
+                    continue;
+                }
+                pokedex[count++] = _pokedex[i];
                 _count++;
             }
-
-            count += _count;
+            _pokedex.setCount(0);
+            // _pokedex.lose_refs();
         }
 
-        Pokemon* getPokemon(int index){
-            return pokemons[index];
-        }
+        // ---------- Get/Set ters ----------
+        int getCount(){return count;}
+        void setCount(int _count){count = _count;}    
+
+        void lose_refs(){
+            for(int i = 0; i < POKEDEX_ARRAY_SIZE; i++){
+                pokedex[i] = nullptr;
+            }
+        }    
 };
 
 class Ability {

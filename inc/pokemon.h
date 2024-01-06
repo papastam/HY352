@@ -4,22 +4,38 @@
 // ------------------- Utulities -----------------
 #define REMOVE_SC false?0 // Remove semicolon
 
+// Commands that need to be executed before each command
+#define PRE_EXEC ;\
+    if(temp_pokedex.getCount()!=0){ \
+        pokedex->addPokemon(temp_pokedex); \
+    }else if(temp_pokemon != nullptr){ \
+        pokedex->addPokemon(temp_pokemon); \
+    } \
+    temp_pokemon = nullptr;
+
+#define CLEAR_MEMORY ;\
+    delete pokedex; \
+    delete temp_pokemon;
+
 // -------------------- Macros -------------------
 
 #define BEGIN_GAME \
     int main(int argc, char *argv[]) {\
     std::cout << "---------- Pokemon game for HY352 ----------" << std::endl;\
-    Pokemons* pokemon_list = new Pokemons()\
-     
+    Pokedex* pokedex = new Pokedex(true);\
+    Pokemon* temp_pokemon = nullptr;\
+    Pokedex temp_pokedex = Pokedex(false);\
+
 #define END_GAME \
     ;\
+    CLEAR_MEMORY;\
     std::cout << "---------- End of pokemon game ------------" << std::endl;\
     return 0; \
     } 
 
-#define CREATE ;pokemon_list->addPokemon(
-#define POKEMON new Pokemon
-#define POKEMONS Pokemon* =
+#define CREATE PRE_EXEC;
+#define POKEMON temp_pokemon = new Pokemon
+#define POKEMONS temp_pokedex
 #define NAME REMOVE_SC
 #define TYPE REMOVE_SC
 #define HP REMOVE_SC
@@ -78,5 +94,5 @@
 // #define DO ){} already defined
 
 // Print
-// SHOW GET_NAME(ATTACKER)
-#define SHOW ;std::cout <<
+// SHOW GET_NAME(ATTACKER) 
+#define SHOW PRE_EXEC std::cout <<
