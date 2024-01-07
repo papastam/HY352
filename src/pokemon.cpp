@@ -9,18 +9,13 @@ BEGIN_GAME
 ;
     // Pokedex temp_pokedex(true);
 
-    // ;game += (new Pokedex(false))[
-    //     Pokemon{
-    //         "papastam",
-    //         "Electric",
-    //         10
-    //     },
-    //     Pokemon{
-    //         "bis",
-    //         "Grass",
-    //         1
-    //     }
-    // ]
+    ;game += new Array<Pokemon>[
+        Pokemon{
+            "papastam",
+            "Electric",
+            10
+        }
+    ]
 
     CREATE POKEMON{ 
         NAME: "Oiko",
@@ -40,7 +35,14 @@ BEGIN_GAME
         HP: 100
     }
 
-    SHOW game.getPokedex()
+
+    CREATE POKEMON{
+        NAME: "Xiwths",
+        TYPE: "Electric",
+        HP: 100
+    }
+
+    SHOW game.getPokemons()
 
 END_GAME
 
