@@ -1,4 +1,4 @@
-#include "../inc/pokemon.h"
+#include "../inc/grammar.h"
 
 BEGIN_GAME
     CREATE POKEMON{
@@ -7,36 +7,40 @@ BEGIN_GAME
         HP: 100
     }
 
-    CREATE POKEMON{
-        NAME: "Oiko",
-        TYPE: "Water",
-        HP: 10000
-    }
+    SHOW game.getPokedex()
 
-    CREATE POKEMON{
-        NAME: "Zmu",
-        TYPE: "Fire",
-        HP: 50
-    }
+END_GAME
 
-    CREATE POKEMON{
-        NAME: "Xiwths",
-        TYPE: "Electric",
-        HP: 100
-    }
+    // CREATE POKEMON{
+    //     NAME: "Oiko",
+    //     TYPE: "Water",
+    //     HP: 10000
+    // }
 
-    CREATE POKEMONS[
-        temp_pokemon = new Pokemon{
-            "papastam",
-            "Electric",
-            10
-        },
-        temp_pokemon = new Pokemon{
-            "bis",
-            "Grass",
-            1
-        }
-    ]
+    // CREATE POKEMON{
+    //     NAME: "Zmu",
+    //     TYPE: "Fire",
+    //     HP: 50
+    // }
+
+    // CREATE POKEMON{
+    //     NAME: "Xiwths",
+    //     TYPE: "Electric",
+    //     HP: 100
+    // }
+
+    // CREATE POKEMONS[
+    //     temp_pokemon = new Pokemon{
+    //         "papastam",
+    //         "Electric",
+    //         10
+    //     },
+    //     temp_pokemon = new Pokemon{
+    //         "bis",
+    //         "Grass",
+    //         1
+    //     }
+    // ]
 
     // PRE_EXEC temp_pokedex[
     //     temp_pokemon = new Pokemon{
@@ -46,6 +50,3 @@ BEGIN_GAME
     //     }
     // ]
     
-    SHOW pokedex
-
-END_GAME

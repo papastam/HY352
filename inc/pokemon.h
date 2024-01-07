@@ -1,96 +1,125 @@
-#include "obj.h"
+#include <stdio.h>
+#include <stdarg.h>
 #include <iostream>
+#include <string.h>
+
+#pragma once
+
+#define POKEMON_NAME_SIZE 20
+
+typedef enum e_type{
+    Electric,
+    Fire,
+    Water,
+    Grass
+} pok_Type;
 
 // ------------------- Utulities -----------------
-#define REMOVE_SC false?0 // Remove semicolon
-
-// Commands that need to be executed before each command
-#define PRE_EXEC ;\
-    if(temp_pokedex.getCount() != 0){ \
-        pokedex.addPokemon(&temp_pokedex); \
-    }else if(temp_pokemon != nullptr){ \
-        pokedex.addPokemon(temp_pokemon); \
-    } \
-    temp_pokemon = nullptr;
-
-#define CLEAR_MEMORY ;\
-
-// -------------------- Macros -------------------
-
-#define BEGIN_GAME \
-    int main(int argc, char *argv[]) {\
-    std::cout << "---------- Pokemon game for HY352 ----------" << std::endl;\
-    Pokedex pokedex(true);\
-    Pokedex temp_pokedex(false);\
-    Pokemon* temp_pokemon = nullptr;\
-
-#define END_GAME \
-    ;\
-    CLEAR_MEMORY;\
-    std::cout << "----------- End of pokemon game ------------" << std::endl;\
-    return 0; \
+pok_Type strToType(const char* str){
+    if(strcmp(str, "Electric") == 0){
+        return Electric;
+    } else if(strcmp(str, "Fire") == 0){
+        return Fire;
+    } else if(strcmp(str, "Water") == 0){
+        return Water;
+    } else if(strcmp(str, "Grass") == 0){
+        return Grass;
+    } else {
+        printf("Error: Unknown pokemon type %s\n", str);
+        exit(1);
     }
+}
 
-#define CREATE PRE_EXEC;
-#define POKEMON temp_pokemon = new Pokemon
-#define POKEMONS temp_pokedex
-#define NAME REMOVE_SC
-#define TYPE REMOVE_SC
-#define HP REMOVE_SC
 
-// UNIMPLEMENTED
+const char* typeToStr(pok_Type type){
+    switch(type){
+        case Electric:
+            return "Electric";
+        case Fire:
+            return "Fire";
+        case Water:
+            return "Water";
+        case Grass:
+            return "Grass";
+        default:
+            printf("Error: Unknown pokemon type %d\n", type);
+            exit(1);
+    }
+}
 
-#define ABILITY
-#define ABILITIES
-#define ACTION
-#define START
-#define ATTACKER
-#define DEFENDER
-#define DAMAGE
-#define HEAL
-#define POKEBALL
+// info print function with variadic arguments
+void info(const char* format, ...){
+    va_list args;
+    va_start(args, format);
+    printf("INFO: ");
+    vprintf(format, args);
+    printf("\n");
+    va_end(args);
+}
 
-// ------------------ Actions ------------------
-#define GET_HP(x) x->getHp()
-#define GET_NAME(x) x->getName()
-#define GET_TYPE(x) x->getType()
-#define IS_IN_POKEBALL(x) x->isInPokeball()
+// ------------------- Objects -------------------
 
-// Logical operators
-// AND(GET_TYPE(ATTACKER) == "Electric", GET_HP(ATTACKER) > 20)
-#define AND(x, y) x && y
-// OR(GET_TYPE(ATTACKER) == "Electric", GET_HP(ATTACKER) > 20)
-#define OR(x, y) x || y
-// NOT(GET_TYPE(ATTACKER) == "Electric")
-#define NOT(x) !x
+class Pokemon {
+    private:
+        char name[POKEMON_NAME_SIZE];
+        int hp;
+        pok_Type type;
+        bool in_pokeball;
+        // Ability abilities[4];
+    
+    public:
+        // ------------------- Constructors -------------------
 
-// Flow control
-// IF(GET_TYPE(ATTACKER) == "Electric") DO
-//     DAMAGE DEFENDER 20
-// END
-#define IF ;if(
-#define DO ){
-#define ELSE } else {
-#define ELSE_IF } else if(
-#define END }
+        Pokemon(const char* _name, const char* _type, int _hp){
+            strcpy(name, _name);
+            type = strToType(_type);
+            hp = _hp;
+            in_pokeball = true;
+        }
+        
+        Pokemon(){
+            strcpy(name, "Default");
+            hp = 10;
+            type = Electric;
+        }
 
-// Loops
-// FOR 5 ROUNDS DO
-//     DAMAGE DEFENDER 20
-// END
-#define FOR ;for(int i = 0; i <
-#define ROUNDS ; i++
-// #define DO ){ already defined
-// #define END } already defined
+        // Destructor
+        ~Pokemon(){
+        }
 
-// After
-// AFTER 5 ROUNDS DO
-//     POKEBALL DEFENDER ---a
-// END
-#define AFTER ;for(int i = 0; i < 
-// #define ROUNDS ; i++ already defined
-// #define DO ){} already defined
+        // Copy constructor
+        Pokemon(const Pokemon& _pokemon){
+            strcpy(name, _pokemon.name);
+            hp = _pokemon.hp;
+            type = _pokemon.type;
+            in_pokeball = _pokemon.in_pokeball;
+        }
 
-// Print
-// SHOW GET_NAME(ATTACKER) 
-#define SHOW PRE_EXEC std::cout <<
+        // Copy assignment
+        Pokemon& operator=(const Pokemon& _pokemon){
+            strcpy(name, _pokemon.name);
+            hp = _pokemon.hp;
+            type = _pokemon.type;
+            in_pokeball = _pokemon.in_pokeball;
+            return *this;
+        }
+
+        // Move constructor
+        Pokemon(Pokemon&& _pokemon){
+            strcpy(name, _pokemon.name);
+            hp = _pokemon.hp;
+            type = _pokemon.type;
+            in_pokeball = _pokemon.in_pokeball;
+            _pokemon.hp = 0;
+            _pokemon.in_pokeball = false;
+        }
+
+        // -------------------- Operators --------------------
+        
+        // ------------------- Functions -------------------
+
+        char*       getName()       {return name;}
+        int         getHp()         {return hp;}
+        const char* getType()       {return typeToStr(type);}
+        bool        isInPokeball()  {return in_pokeball;}
+};
