@@ -17,7 +17,6 @@
 
 #define END_GAME \
     ;\
-    CLEAR_MEMORY;\
     return 0; \
     }
 
