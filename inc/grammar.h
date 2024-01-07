@@ -15,6 +15,7 @@
     int main(int argc, char *argv[]) {\
     Game game = Game();\
     Array<Pokemon> temp_pok = Array<Pokemon>();\
+    Array<Ability> temp_ab = Array<Ability>();\
 
 #define END_GAME \
     ;\
@@ -28,10 +29,11 @@
 #define TYPE REMOVE_SC
 #define HP REMOVE_SC
 
+#define ABILITY Ability
+#define ABILITIES Array<Ability>; game += temp_ab
+
 // UNIMPLEMENTED
 
-#define ABILITY
-#define ABILITIES
 #define ACTION
 #define START
 #define ATTACKER

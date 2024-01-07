@@ -46,14 +46,3 @@ BEGIN_GAME
     SHOW game.getPokemons()
 
 END_GAME
-
-
-
-    // PRE_EXEC temp_pokedex[
-    //     temp_pokemon = new Pokemon{
-    //         "papastam2",
-    //         "Electric",
-    //         10
-    //     }
-    // ]
-    
