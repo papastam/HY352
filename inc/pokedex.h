@@ -68,6 +68,11 @@ class Pokedex {
  
         // -------------------- Operators --------------------
 
+        Pokedex & operator[](Pokedex* _pokedex){
+            addPokemon(_pokedex);
+            return *this;
+        }
+
         // overload to get a pokemon by name
         Pokemon* operator[](char* name){
             for(int i = 0; i < count; i++){

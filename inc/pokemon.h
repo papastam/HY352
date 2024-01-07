@@ -3,6 +3,8 @@
 #include <iostream>
 #include <string.h>
 
+#include "utils.h"
+
 #pragma once
 
 #define POKEMON_NAME_SIZE 20
@@ -45,16 +47,6 @@ const char* typeToStr(pok_Type type){
             printf("Error: Unknown pokemon type %d\n", type);
             exit(1);
     }
-}
-
-// info print function with variadic arguments
-void info(const char* format, ...){
-    va_list args;
-    va_start(args, format);
-    printf("INFO: ");
-    vprintf(format, args);
-    printf("\n");
-    va_end(args);
 }
 
 // ------------------- Objects -------------------

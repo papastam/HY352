@@ -22,7 +22,7 @@
 
 #define CREATE PRE_EXEC game += new
 #define POKEMON Pokemon
-#define POKEMONS temp_pokedex
+#define POKEMONS Pokedex(false)
 #define NAME REMOVE_SC
 #define TYPE REMOVE_SC
 #define HP REMOVE_SC
