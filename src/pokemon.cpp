@@ -43,6 +43,13 @@ BEGIN_GAME
         HP: 100
     }
 
+    PRE_EXEC game += new Ability{
+        "test",
+        false?0: [&](){
+            std::cout << "Hello world" << std::endl;
+        }
+    }
+
     CREATE ABILITY{
         NAME: "TEST",
         ACTION: START

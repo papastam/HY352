@@ -4,7 +4,7 @@
 #pragma once
 
 // ------------------- Utulities -----------------
-#define REMOVE_SC false?0 // Remove semicolon
+#define REMOVE_COL false?0 // Remove semicolon
 
 // Commands that need to be executed before each command
 #define PRE_EXEC ;
@@ -25,17 +25,17 @@
 #define CREATE PRE_EXEC game += new
 #define POKEMON Pokemon
 #define POKEMONS Array<Pokemon>; game += temp_pok
-#define NAME REMOVE_SC
-#define TYPE REMOVE_SC
-#define HP REMOVE_SC
+#define NAME REMOVE_COL
+#define TYPE REMOVE_COL
+#define HP REMOVE_COL
 
 #define ABILITY Ability
 #define ABILITIES Array<Ability>; game += temp_ab
-#define ACTION REMOVE_SC
+#define ACTION REMOVE_COL
 
 // UNIMPLEMENTED
 
-#define START [&game.attacker, &game.defender](){
+#define START [&]()->void{
 #define END }
 #define ATTACKER game.getAttacker()
 #define DEFENDER game.getDefender()
