@@ -4,14 +4,16 @@
 class Ability{
     private: 
         char* name;
+        void (*action)();
 
     public:
-        Ability(char* _name){
-            name = _name;
+        Ability(const char* _name, void (*_action)()){
+            strcpy(name, _name);
+            action = _action;
         }
 
-        void cast_ability(Pokemon* target){
-            target->setHp(target->getHp());
-        }
+        // void cast_ability(Pokemon* attacker, Pokemon* defender){
+        //     action(attacker, defender)
+        // }
 
 };

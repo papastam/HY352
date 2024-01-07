@@ -43,6 +43,15 @@ BEGIN_GAME
         HP: 100
     }
 
+    CREATE ABILITY{
+        NAME: "TEST",
+        ACTION: START
+            IF GET_HP(ATTACKER) DO
+            END
+
+        END
+    }
+
     SHOW game.getPokemons()
 
 END_GAME

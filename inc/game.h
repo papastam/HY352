@@ -9,11 +9,16 @@ class Game{
         Array<Ability> abilities;
 
     public:
+        Pokemon* attacker;
+        Pokemon* defender;
+        
         // ------------------- Constructors -------------------
         Game(){
             std::cout << "---------- Pokemon game for HY352 ----------" << std::endl;
             pokemons = Array<Pokemon>();
             abilities = Array<Ability>();
+            attacker = nullptr;
+            defender = nullptr;
         }
 
         // Destructor
@@ -61,10 +66,10 @@ class Game{
 
         // -------------------- Get/Setters -------------------
 
-        // get a pointer to the pokedex
         Array<Pokemon>* getPokemons(){return &pokemons;}
-
-        // get a pointer to the abilities
         Array<Ability>* getAbilities(){return &abilities;}
+
+        Pokemon* getAttacker(){return attacker;}
+        Pokemon* getDefender(){return defender;}
 
 };

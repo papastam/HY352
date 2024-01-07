@@ -31,13 +31,14 @@
 
 #define ABILITY Ability
 #define ABILITIES Array<Ability>; game += temp_ab
+#define ACTION REMOVE_SC
 
 // UNIMPLEMENTED
 
-#define ACTION
-#define START
-#define ATTACKER
-#define DEFENDER
+#define START [&game.attacker, &game.defender](){
+#define END }
+#define ATTACKER game.getAttacker()
+#define DEFENDER game.getDefender()
 #define DAMAGE
 #define HEAL
 #define POKEBALL
@@ -64,7 +65,7 @@
 #define DO ){
 #define ELSE } else {
 #define ELSE_IF } else if(
-#define END }
+// #define END } already defined
 
 // Loops
 // FOR 5 ROUNDS DO
