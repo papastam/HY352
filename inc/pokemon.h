@@ -114,6 +114,7 @@ class Pokemon {
 
         char*       getName()       {return name;}
         int         getHp()         {return hp;}
+        void        setHp(int value){hp = value;}
         const char* getType()       {return typeToStr(type);}
         bool        isInPokeball()  {return in_pokeball;}
 };
