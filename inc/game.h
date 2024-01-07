@@ -1,16 +1,16 @@
-#include "pokedex.h"
 #include "pokemon.h"
 #include "ability.h"
+#include "array.h"
 
 class Game{
     private:
-        Pokedex pokedex;
+        Array<Pokemon> pokemons;
 
     public:
         // ------------------- Constructors -------------------
         Game(){
             std::cout << "---------- Pokemon game for HY352 ----------" << std::endl;
-            pokedex = Pokedex(true);
+            pokemons = Array<Pokemon>();
         }
 
         // Destructor
@@ -20,31 +20,35 @@ class Game{
 
         // Copy constructor
         Game(const Game& _game){
-            pokedex = _game.pokedex;
+            pokemons = _game.pokemons;            
         }
 
         // Copy assignment
         Game& operator=(const Game& _game){
-            pokedex = _game.pokedex;
+            pokemons = _game.pokemons;
             return *this;
         }
 
         // Move constructor
         Game(Game&& _game){
-            pokedex = _game.pokedex;
-            _game.pokedex = Pokedex();
+            pokemons = std::move(_game.pokemons);
         }
 
         // --------------------- Operators --------------------
 
         void operator+=(Pokemon* _pokemon){
-            pokedex.addPokemon(_pokemon);
+            pokemons.add(_pokemon);
+        }
+
+        void operator+=(Array<Pokemon>* _pokemons){
+            pokemons.add(_pokemons);
         }
 
         // -------------------- Get/Setters -------------------
 
         // get a pointer to the pokedex
-        Pokedex* getPokedex(){
-            return &pokedex;
+        Array<Pokemon>* getPokemons(){
+            return &pokemons;
         }
+
 };
