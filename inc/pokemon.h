@@ -61,7 +61,7 @@ void info(const char* format, ...){
 
 class Pokemon {
     private:
-        char name[POKEMON_NAME_SIZE];
+        char name[POKEMON_NAME_SIZE]= {0};
         int hp;
         pok_Type type;
         bool in_pokeball;
@@ -85,10 +85,12 @@ class Pokemon {
 
         // Destructor
         ~Pokemon(){
+            info("Destructor");
         }
 
         // Copy constructor
         Pokemon(const Pokemon& _pokemon){
+            info("Copy constructor");
             strcpy(name, _pokemon.name);
             hp = _pokemon.hp;
             type = _pokemon.type;

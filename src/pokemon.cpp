@@ -7,28 +7,6 @@ BEGIN_GAME
         HP: 100
     }
 
-    SHOW game.getPokedex()
-
-END_GAME
-
-    // CREATE POKEMON{
-    //     NAME: "Oiko",
-    //     TYPE: "Water",
-    //     HP: 10000
-    // }
-
-    // CREATE POKEMON{
-    //     NAME: "Zmu",
-    //     TYPE: "Fire",
-    //     HP: 50
-    // }
-
-    // CREATE POKEMON{
-    //     NAME: "Xiwths",
-    //     TYPE: "Electric",
-    //     HP: 100
-    // }
-
     // CREATE POKEMONS[
     //     temp_pokemon = new Pokemon{
     //         "papastam",
@@ -41,6 +19,30 @@ END_GAME
     //         1
     //     }
     // ]
+
+    CREATE POKEMON{
+        NAME: "Oiko",
+        TYPE: "Water",
+        HP: 10000
+    }
+
+    CREATE POKEMON{
+        NAME: "Zmu",
+        TYPE: "Fire",
+        HP: 50
+    }
+
+    CREATE POKEMON{
+        NAME: "Xiwths",
+        TYPE: "Electric",
+        HP: 100
+    }
+
+    SHOW game.getPokedex()
+
+END_GAME
+
+
 
     // PRE_EXEC temp_pokedex[
     //     temp_pokemon = new Pokemon{

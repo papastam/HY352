@@ -7,9 +7,7 @@
 #define REMOVE_SC false?0 // Remove semicolon
 
 // Commands that need to be executed before each command
-#define PRE_EXEC ;\
-
-#define CLEAR_MEMORY ;\
+#define PRE_EXEC ;
 
 // -------------------- Macros -------------------
 
@@ -23,7 +21,7 @@
     return 0; \
     }
 
-#define CREATE PRE_EXEC game += 
+#define CREATE PRE_EXEC game += new
 #define POKEMON Pokemon
 #define POKEMONS temp_pokedex
 #define NAME REMOVE_SC

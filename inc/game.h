@@ -37,10 +37,14 @@ class Game{
 
         // --------------------- Operators --------------------
 
-        void operator+=(Pokemon _pokemon){
+        void operator+=(Pokemon* _pokemon){
             pokedex.addPokemon(_pokemon);
         }
 
         // -------------------- Get/Setters -------------------
-        Pokedex& getPokedex(){return pokedex;}
+
+        // get a pointer to the pokedex
+        Pokedex* getPokedex(){
+            return &pokedex;
+        }
 };

@@ -68,19 +68,6 @@ class Pokedex {
  
         // -------------------- Operators --------------------
 
-        // // ----- [] -----
-        // Pokedex operator[](Pokemon* pokemon){
-        //     this->addPokemon(pokemon);
-        //     return this;
-        // }
-
-        // // overload to add a list of pokemons
-        // Pokedex operator[](Pokedex* _pokedex){
-        //     this->addPokemon(_pokedex);
-        //     delete _pokedex;
-        //     return *this;
-        // }
-
         // overload to get a pokemon by name
         Pokemon* operator[](char* name){
             for(int i = 0; i < count; i++){
@@ -96,26 +83,11 @@ class Pokedex {
             return pokedex[index];
         }
 
-        // void operator+=(Pokedex* _pokedex){
-        //     this->addPokemon(_pokedex);
-        // }
-
-        // ----- , -----
-        // Pokedex operator,(Pokedex* _pokedex){ //possibly will remain unused
-        //     this->addPokemon(_pokedex);
-        //     return *this;
-        // }
-
-        // Pokedex operator,(Pokemon pokemon){
-        //     this->addPokemon(&pokemon);
-        //     return *this;
-        // }
-
         // ----- << -----
-        friend std::ostream& operator<<(std::ostream& os, Pokedex pokedex){
+        friend std::ostream& operator<<(std::ostream& os, Pokedex* pokedex){
             os << "Pokedex:" << std::endl;
-            for(int i = 0; i < pokedex.count; i++){
-                os << "  - " << pokedex.pokedex[i]->getName() << std::endl;
+            for(int i = 0; i < pokedex->getCount(); i++){
+                os << "  - " << pokedex->pokedex[i]->getName() << std::endl;
             }
             return os;
         }
@@ -124,17 +96,17 @@ class Pokedex {
         // -------------------- Functions --------------------
         
         //Two add functions overloaded to support both single 
-        void addPokemon(Pokemon pokemon){
+        void addPokemon(Pokemon* pokemon){
             if(!main_pokedex){
-                info("Adding pokemon %s to temp pokedex", pokemon.getName());
+                info("Adding pokemon %s to temp pokedex", pokemon->getName());
             } else {
-                info("Adding pokemon %s to main pokedex", pokemon.getName());
+                info("Adding pokemon %s to main pokedex", pokemon->getName());
             }
-            if((*this)[pokemon.getName()] != nullptr){
-                info("Pokemon %s already exists in pokedex", pokemon.getName());
+            if((*this)[pokemon->getName()] != nullptr){
+                info("Pokemon %s already exists in pokedex", pokemon->getName());
                 return;
             }
-            pokedex[count] = &pokemon;
+            pokedex[count] = pokemon;
             count++;
         }
 
