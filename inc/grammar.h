@@ -14,6 +14,7 @@
 #define BEGIN_GAME \
     int main(int argc, char *argv[]) {\
     Game game = Game();\
+    Array<Pokemon> temp_pok = Array<Pokemon>();\
 
 #define END_GAME \
     ;\
@@ -22,7 +23,7 @@
 
 #define CREATE PRE_EXEC game += new
 #define POKEMON Pokemon
-#define POKEMONS 
+#define POKEMONS Array<Pokemon>; game += temp_pok
 #define NAME REMOVE_SC
 #define TYPE REMOVE_SC
 #define HP REMOVE_SC

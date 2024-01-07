@@ -1,5 +1,8 @@
 #define ARRAYSIZE 50
 
+#include "utils.h"
+
+#pragma once
 
 template<class T> class Array {
     private:
@@ -60,14 +63,25 @@ template<class T> class Array {
             return nullptr;
         }
 
-        void operator[](T _element){
+        Array<T>* operator[](T _element){
             add(&_element);
+            return this;
+        }
+
+        Array<T>* operator[](Array<T> _element){
+            add(&_element);
+            return this;
+        }
+
+        Array<T> operator,(T _element){
+            add(&_element);
+            return *this;
         }
 
         friend std::ostream& operator<<(std::ostream& os, Array* _arr){
             os << "Pokedex:" << std::endl;
             for(int i = 0; i < _arr->getCount(); i++){
-                os << "  - " << _arr->arr[i]->getName() << std::endl;
+                os << _arr->arr[i] << std::endl;
             }
             return os;
         }

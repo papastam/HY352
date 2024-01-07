@@ -31,8 +31,8 @@ bisdb: buildbis
 	@printf "\e[1mrunning:\e[0m \e[1;33m%s\e[0m\n" $(BIND)/$(POKOUT_BIS)
 	@gdb $(BIND)/$(POKOUT_BIS).out
 
-build: dirs $(BIND)/$(POKOUT) 
-buildbis: dirs $(BIND)/$(POKOUT_BIS)
+build: clean dirs $(BIND)/$(POKOUT) 
+buildbis: clean dirs $(BIND)/$(POKOUT_BIS)
 
 dirs:
 	@mkdir -p bin/

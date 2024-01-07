@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string.h>
 
+#include "array.h"
 #include "utils.h"
 
 #pragma once
@@ -27,7 +28,7 @@ pok_Type strToType(const char* str){
     } else if(strcmp(str, "Grass") == 0){
         return Grass;
     } else {
-        printf("Error: Unknown pokemon type %s\n", str);
+        error("Error: Unknown pokemon type %s\n", str);
         exit(1);
     }
 }
@@ -44,7 +45,7 @@ const char* typeToStr(pok_Type type){
         case Grass:
             return "Grass";
         default:
-            printf("Error: Unknown pokemon type %d\n", type);
+            error("Error: Unknown pokemon type %d\n", type);
             exit(1);
     }
 }
@@ -77,12 +78,10 @@ class Pokemon {
 
         // Destructor
         ~Pokemon(){
-            info("Destructor");
         }
 
         // Copy constructor
         Pokemon(const Pokemon& _pokemon){
-            info("Copy constructor");
             strcpy(name, _pokemon.name);
             hp = _pokemon.hp;
             type = _pokemon.type;
@@ -110,6 +109,18 @@ class Pokemon {
 
         // -------------------- Operators --------------------
         
+        Array<Pokemon> operator,(Pokemon _pokemon){
+            Array<Pokemon> arr = Array<Pokemon>();
+            arr.add(this);
+            arr.add(&_pokemon);
+            return arr;
+        }
+
+        friend std::ostream& operator<<(std::ostream& os, Pokemon* pok){
+            os << "  - " << pok->getName() << " (" << pok->getType() << ", HP: " << pok->getHp() << ")";
+            return os;
+        }
+
         // ------------------- Functions -------------------
 
         char*       getName()       {return name;}

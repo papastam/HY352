@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdarg.h>
 
+#pragma once
+
 // info print function with variadic arguments
 void info(const char* format, ...){
     va_list args;

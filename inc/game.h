@@ -1,6 +1,7 @@
 #include "pokemon.h"
 #include "ability.h"
-#include "array.h"
+
+#pragma once
 
 class Game{
     private:
