@@ -43,13 +43,6 @@ BEGIN_GAME
         HP: 100
     }
 
-    PRE_EXEC game += new Ability{
-        "test",
-        false?0: std::function<void()>([](){
-            std::cout << "TEST" << std::endl;
-        })
-    }
-
     DEAR "Pikachu" LEARN[
         ABILITY_NAME("ab_name")
     ]
