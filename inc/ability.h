@@ -5,10 +5,10 @@
 class Ability{
     private: 
         char* name;
-        std::function<void(Pokemon* p1, Pokemon* p2)> action;
+        std::function<void()> action;
 
     public:
-        Ability(const char* _name, std::function<void(Pokemon* p1, Pokemon* p2)> _action){
+        Ability(const char* _name, std::function<void()> _action){
             strcpy(name, _name);
             action = _action;
         }

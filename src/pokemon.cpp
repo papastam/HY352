@@ -45,7 +45,7 @@ BEGIN_GAME
 
     PRE_EXEC game += new Ability{
         "test",
-        false?0: std::function<void>([](){
+        false?0: std::function<void()>([](){
             std::cout << "TEST" << std::endl;
         })
     }
