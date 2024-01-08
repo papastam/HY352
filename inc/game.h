@@ -1,5 +1,6 @@
 #include "pokemon.h"
 #include "ability.h"
+#include <assert.h>
 
 #pragma once
 
@@ -75,10 +76,7 @@ class Game{
         // -------------------- DUEL -------------------
 
         void duel(){
-            if(!attacker || !defender){
-                error("kati gamhthike");
-                exit(0);
-            }
+            assert(!attacker || !defender);
 
             // EACH player chooses their pokemon
 
