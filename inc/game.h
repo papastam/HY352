@@ -7,6 +7,7 @@ class Game{
     private:
         Array<Pokemon> pokemons;
         Array<Ability> abilities;
+        int round;
 
     public:
         Pokemon* attacker;
@@ -71,5 +72,99 @@ class Game{
 
         Pokemon* getAttacker(){return attacker;}
         Pokemon* getDefender(){return defender;}
+
+        // -------------------- DUEL -------------------
+
+        void duel(){
+            if(!attacker || !defender){
+                error("kati gamhthike");
+                exit(0);
+            }
+
+            // EACH player chooses their pokemon
+
+
+            while(1) {
+                //1. Player 1 chooses an ability to cast
+                //2. Action is performed
+                //3. Check if defending pokemon is dead
+                if(is_dead(defender))
+                    //print winner and finish game
+                //4. Attacker/defender pointers are switched
+                switch_pointers();
+                //5. Player 2 chooses an ability to cast
+                //6. Action is performed
+                //7. Check if defending pokemon is dead
+                if(is_dead(defender))
+                    //print winner and finish game
+                //8. Attacker/Defender pointers are switched again
+                switch_pointers();
+                //9. Round number is increased
+                round++;
+            }
+        }
+
+        // -------------------- Functions for Duel -------------------
+
+        int is_dead(Pokemon* target){
+            if(target->getHp() > 0)
+                return 0; 
+            return 1;
+        }
+
+        void switch_pointers(){
+            Pokemon* tmp = attacker;
+            attacker = defender;
+            defender = tmp;
+        }
+
+        // int calculate_final_damage(int initial_dmg) {
+        //     int final_dmg = initial_dmg; // if no modifiers are applied then deal the initial dmg
+            
+        //     if(attacker->getType() == Electric) {
+        //         switch (defender->getType()) {
+        //             case Fire:
+
+        //                 break;
+        //             case Electric:
+                    
+        //                 break;
+        //             case Grass:
+                    
+        //                 break;
+        //         }
+        //     }
+        //     else if(attacker->getType() == Fire){
+        //         switch (defender->getType()) {
+        //             case Fire:
+
+        //                 break;
+        //             case Electric:
+                    
+        //                 break;
+        //             case Grass:
+                    
+        //                 break;
+        //         }
+        //     }
+        //     else if(attacker->getType() == Water){
+        //         switch (defender->getType()) {
+        //             case Fire:
+
+        //                 break;
+        //             case Electric:
+                    
+        //                 break;
+        //             case Grass:
+                    
+        //                 break;
+        //         }
+        //     }
+            
+            
+        //     return final_dmg;
+
+        // }
+
 
 };

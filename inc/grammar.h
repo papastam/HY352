@@ -46,7 +46,7 @@
 // ------------------ Actions ------------------
 #define GET_HP(x) x->getHp()
 #define GET_NAME(x) x->getName()
-#define GET_TYPE(x) x->getType()
+#define GET_TYPE(x) x->getTypestr()
 #define IS_IN_POKEBALL(x) x->isInPokeball()
 
 // Logical operators

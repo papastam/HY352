@@ -58,6 +58,7 @@ class Pokemon {
         int hp;
         pok_Type type;
         bool in_pokeball;
+        int player;
         // Ability abilities[4];
     
     public:
@@ -117,7 +118,7 @@ class Pokemon {
         }
 
         friend std::ostream& operator<<(std::ostream& os, Pokemon* pok){
-            os << "  - " << pok->getName() << " (" << pok->getType() << ", HP: " << pok->getHp() << ")";
+            os << "  - " << pok->getName() << " (" << pok->getTypestr() << ", HP: " << pok->getHp() << ")";
             return os;
         }
 
@@ -126,6 +127,8 @@ class Pokemon {
         char*       getName()       {return name;}
         int         getHp()         {return hp;}
         void        setHp(int value){hp = value;}
-        const char* getType()       {return typeToStr(type);}
+        int         getPlayer()     {return player;}
+        const char* getTypestr()       {return typeToStr(type);}
+        pok_Type    getType()       {return type;}
         bool        isInPokeball()  {return in_pokeball;}
 };
