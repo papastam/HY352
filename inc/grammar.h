@@ -33,8 +33,8 @@
 #define ABILITIES Array<Ability>; game += temp_ab
 #define ACTION REMOVE_COL
 
-#define START [&]()->void{
-#define END }
+#define START std::function<void>([&]()->void{
+#define END })
 #define ATTACKER game.getAttacker()
 #define DEFENDER game.getDefender()
 #define DAMAGE
