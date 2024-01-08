@@ -166,12 +166,14 @@ class Game{
         // }
 
 
-        Pokemon getPokemon(char* name){
+        Pokemon getPokemon(const char* name){
             for(int i = 0; i < pokemons.getCount(); i++){
                 if(strcmp(pokemons[i]->getName(), name) == 0){
                     return pokemons.getObj(i);
                 }
             }
+            error("Pokemon not found");
+            return Pokemon();
         }
 
 };

@@ -54,7 +54,7 @@ template<class T> class Array {
         }
 
         // overload to get a pokemon by name
-        T* operator[](char* name){
+        T* operator[](const char* name){
             for(int i = 0; i < count; i++){
                 if(strcmp(arr[i]->getName(), name) == 0){
                     return arr[i];
@@ -108,7 +108,7 @@ template<class T> class Array {
             }
         }
 
-        T getObj(char *name){
+        T getObj(const char *name){
             return *(*this)[name];
         }
 

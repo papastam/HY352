@@ -5,6 +5,7 @@
 
 #include "array.h"
 #include "utils.h"
+#include "ability.h"
 
 #pragma once
 

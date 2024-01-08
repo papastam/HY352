@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <functional>
-#include "pokemon.h"
+
+#pragma once
 
 class Ability{
     private: 
