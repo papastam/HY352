@@ -50,6 +50,10 @@ BEGIN_GAME
         })
     }
 
+    DEAR "Pikachu" LEARN[
+        ABILITY_NAME("ab_name")
+    ]
+
     // CREATE ABILITY{
     //     NAME: "TEST",
     //     ACTION: START

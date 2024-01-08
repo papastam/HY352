@@ -33,8 +33,6 @@
 #define ABILITIES Array<Ability>; game += temp_ab
 #define ACTION REMOVE_COL
 
-// UNIMPLEMENTED
-
 #define START [&]()->void{
 #define END }
 #define ATTACKER game.getAttacker()
@@ -42,6 +40,10 @@
 #define DAMAGE
 #define HEAL
 #define POKEBALL
+
+#define DEAR PRE_EXEC game.getPokemon(
+#define LEARN ) += temp_ab
+#define ABILITY_NAME(x) game.getAbilities().getObj(x)
 
 // ------------------ Actions ------------------
 #define GET_HP(x) x->getHp()
