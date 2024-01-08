@@ -43,9 +43,16 @@ BEGIN_GAME
         HP: 100
     }
 
-    // DEAR "Pikachu" LEARN[
-    //     ABILITY_NAME("ab_name")
-    // ]
+    CREATE ABILITY{
+        NAME: "GAMHSI",
+        ACTION: START
+            PRINT_HW
+        END
+    }
+
+    DEAR "Pikachu" LEARN[
+        ABILITY_NAME("GAMHSI")
+    ]
 
     // CREATE ABILITY{
     //     NAME: "TEST",

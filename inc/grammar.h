@@ -89,3 +89,5 @@
 // Print
 // SHOW GET_NAME(ATTACKER) 
 #define SHOW PRE_EXEC std::cout <<
+
+#define PRINT_HW std::cout << "Hello World" << std::endl;
