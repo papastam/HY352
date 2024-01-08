@@ -108,6 +108,14 @@ template<class T> class Array {
             }
         }
 
+        T getObj(char *name){
+            return *(*this)[name];
+        }
+
+        T getObj(int i){
+            return *arr[i];
+        }
+
         // ------------------- Getters -------------------
         int getCount(){
             return count;

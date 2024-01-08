@@ -28,7 +28,7 @@ pok_Type strToType(const char* str){
     } else if(strcmp(str, "Grass") == 0){
         return Grass;
     } else {
-        error("Error: Unknown pokemon type %s\n", str);
+        error("Unknown pokemon type %s\n", str);
         exit(1);
     }
 }
@@ -45,7 +45,7 @@ const char* typeToStr(pok_Type type){
         case Grass:
             return "Grass";
         default:
-            error("Error: Unknown pokemon type %d\n", type);
+            error("Unknown pokemon type %d\n", type);
             exit(1);
     }
 }
@@ -58,7 +58,7 @@ class Pokemon {
         int hp;
         pok_Type type;
         bool in_pokeball;
-        // Ability abilities[4];
+        Array<Ability> abilities;
     
     public:
         // ------------------- Constructors -------------------
@@ -68,12 +68,15 @@ class Pokemon {
             type = strToType(_type);
             hp = _hp;
             in_pokeball = true;
+            abilities = Array<Ability>();
         }
         
         Pokemon(){
             strcpy(name, "Default");
             hp = 10;
             type = Electric;
+            in_pokeball = true;
+            abilities = Array<Ability>();
         }
 
         // Destructor
@@ -86,6 +89,7 @@ class Pokemon {
             hp = _pokemon.hp;
             type = _pokemon.type;
             in_pokeball = _pokemon.in_pokeball;
+            abilities = _pokemon.abilities;
         }
 
         // Copy assignment
@@ -94,6 +98,7 @@ class Pokemon {
             hp = _pokemon.hp;
             type = _pokemon.type;
             in_pokeball = _pokemon.in_pokeball;
+            abilities = _pokemon.abilities;
             return *this;
         }
 
@@ -103,8 +108,10 @@ class Pokemon {
             hp = _pokemon.hp;
             type = _pokemon.type;
             in_pokeball = _pokemon.in_pokeball;
+            abilities = _pokemon.abilities;
             _pokemon.hp = 0;
-            _pokemon.in_pokeball = false;
+            _pokemon.in_pokeball = false;   
+            _pokemon.abilities = Array<Ability>();
         }
 
         // -------------------- Operators --------------------
@@ -119,6 +126,24 @@ class Pokemon {
         friend std::ostream& operator<<(std::ostream& os, Pokemon* pok){
             os << "  - " << pok->getName() << " (" << pok->getType() << ", HP: " << pok->getHp() << ")";
             return os;
+        }
+
+        void operator+=(Ability* _ability){
+            if(abilities[_ability->getName()] != nullptr){
+                error("Ability %s already exists\n", _ability->getName());
+                return;
+            }
+            abilities.add(_ability);
+        }
+
+        void operator+=(Array<Ability>* _abilities){
+            for(int i = 0; i < _abilities->getCount(); i++){
+                if(abilities[_abilities->getObj(i).getName()] != nullptr){
+                    error("Ability %s already exists\n", _abilities->getObj(i).getName());
+                    continue;
+                }
+                abilities.add(&_abilities[i]);
+            }
         }
 
         // ------------------- Functions -------------------

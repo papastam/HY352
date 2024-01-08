@@ -51,7 +51,6 @@ class Game{
             pokemons.add(_pokemon);
         }
 
-
         void operator+=(Array<Pokemon>* _pokemons){
             pokemons.add(_pokemons);
         }
@@ -67,9 +66,17 @@ class Game{
         // -------------------- Get/Setters -------------------
 
         Array<Pokemon>* getPokemons(){return &pokemons;}
-        Array<Ability>* getAbilities(){return &abilities;}
+        Array<Ability> getAbilities(){return abilities;}
 
         Pokemon* getAttacker(){return attacker;}
         Pokemon* getDefender(){return defender;}
+
+        Pokemon getPokemon(char* name){
+            for(int i = 0; i < pokemons.getCount(); i++){
+                if(strcmp(pokemons[i]->getName(), name) == 0){
+                    return pokemons.getObj(i);
+                }
+            }
+        }
 
 };
