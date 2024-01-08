@@ -25,7 +25,7 @@ BEGIN_GAME
         }
     ]
 
-    CREATE POKEMON{ 
+    CREATE POKEMON{
         NAME: "Oiko",
         TYPE: "Water",
         HP: 10000 
@@ -45,19 +45,19 @@ BEGIN_GAME
 
     PRE_EXEC game += new Ability{
         "test",
-        false?0: [&](){
-            std::cout << "Hello world" << std::endl;
-        }
+        false?0: std::function<void>([](){
+            std::cout << "TEST" << std::endl;
+        })
     }
 
-    CREATE ABILITY{
-        NAME: "TEST",
-        ACTION: START
-            IF GET_HP(ATTACKER) DO
-            END
+    // CREATE ABILITY{
+    //     NAME: "TEST",
+    //     ACTION: START
+    //         IF GET_HP(ATTACKER) DO
+    //         END
 
-        END
-    }
+    //     END
+    // }
 
     SHOW game.getPokemons()
 
