@@ -1,11 +1,13 @@
 #include <stdio.h>
 #include <functional>
 
+#define NAMESIZE 20
+
 #pragma once
 
 class Ability{
     private: 
-        char* name;
+        char name[20] = {0};
         std::function<void()> action;
 
     public:

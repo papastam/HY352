@@ -128,6 +128,13 @@ class Pokemon {
 
         friend std::ostream& operator<<(std::ostream& os, Pokemon* pok){
             os << "  - " << pok->getName() << " (" << pok->getTypestr() << ", HP: " << pok->getHp() << ")";
+            if(pok->abilities.getCount() != 0){
+                os << "[Abilities: ";
+                for(int i = 0; i < pok->abilities.getCount(); i++){
+                    os << pok->abilities[i]->getName() << " ";
+                }
+                os << "]";
+            }
             return os;
         }
 

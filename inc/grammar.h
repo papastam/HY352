@@ -33,7 +33,7 @@
 #define ABILITIES Array<Ability>; game += temp_ab
 #define ACTION REMOVE_COL
 
-#define START std::function<void>([&]()->void{
+#define START std::function<void()>([&]()->void{
 #define END })
 #define ATTACKER game.getAttacker()
 #define DEFENDER game.getDefender()
@@ -41,8 +41,8 @@
 #define HEAL
 #define POKEBALL
 
-#define DEAR PRE_EXEC game.getPokemon(
-#define LEARN ) += temp_ab
+#define DEAR PRE_EXEC *(game.getPokemon(
+#define LEARN )) += temp_ab
 #define ABILITY_NAME(x) game.getAbilities().getObj(x)
 
 // ------------------ Actions ------------------
