@@ -5,7 +5,7 @@
 
 // ------------------- Utulities -----------------
 #define REMOVE_COL false?0 // Remove semicolon
-#define REMOVE_COL_LF false?idk
+#define REMOVE_COL_LF false?temp_lfunc
 
 // Commands that need to be executed before each command
 #define PRE_EXEC ;
@@ -26,7 +26,7 @@
     Game game = Game();\
     Array<Pokemon> temp_pok = Array<Pokemon>();\
     Array<Ability> temp_ab = Array<Ability>();\
-    std::function<void()> idk\
+    std::function<void()> temp_lfunc\
 
 #define END_GAME \
     ;\
