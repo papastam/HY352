@@ -70,6 +70,7 @@ BEGIN_GAME
 
     //     END
     // }
+    ;game.getPokemon("Pikachu")->get_ability("GAMHSI")->do_action();
 
     SHOW game.getPokemons()
 

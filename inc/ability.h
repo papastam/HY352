@@ -32,4 +32,9 @@ class Ability{
     // ------------------- Getters -------------------
     char* getName(){return name;}
 
+    // ------------------- Functions -------------------
+    void do_action(){
+        action();
+    }
+
 };
