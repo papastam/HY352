@@ -16,6 +16,7 @@
     Game game = Game();\
     Array<Pokemon> temp_pok = Array<Pokemon>();\
     Array<Ability> temp_ab = Array<Ability>();\
+    std::function<void()> idk\
 
 #define END_GAME \
     ;\
@@ -28,13 +29,14 @@
 #define NAME REMOVE_COL
 #define TYPE REMOVE_COL
 #define HP REMOVE_COL
+#define IDK false?idk
 
 #define ABILITY Ability
 #define ABILITIES Array<Ability>; game += temp_ab
-#define ACTION REMOVE_COL
+#define ACTION IDK
 
-#define START std::function<void()>([&]()->void{
-#define END })
+#define START [&]()->void{
+#define END }
 #define ATTACKER game.getAttacker()
 #define DEFENDER game.getDefender()
 #define DAMAGE
@@ -63,7 +65,7 @@
 // IF(GET_TYPE(ATTACKER) == "Electric") DO
 //     DAMAGE DEFENDER 20
 // END
-#define IF ;if(
+#define IF ;if( 
 #define DO ){
 #define ELSE } else {
 #define ELSE_IF } else if(
