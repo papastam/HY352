@@ -66,7 +66,7 @@ template<class T> class Array {
         }
 
         Array<T>* operator[](T _element){
-            add(&_element);
+            add(_element);
             return this;
         }
 
@@ -76,12 +76,11 @@ template<class T> class Array {
         }
 
         Array<T> operator,(T _element){
-            add(&_element);
+            add(_element);
             return *this;
         }
 
         friend std::ostream& operator<<(std::ostream& os, Array* _arr){
-            os << "Pokedex:" << std::endl;
             for(int i = 0; i < _arr->getCount(); i++){
                 os << _arr->arr[i] << std::endl;
             }
@@ -89,6 +88,16 @@ template<class T> class Array {
         }
 
         // ------------------- Methods -------------------
+        void add(T _element){
+            // Check for duplicate names
+            if((*this)[_element.getName()] != nullptr){
+                error("Pokemon %s already in pokedex", _element.getName());
+                return;
+            }
+            arr[count] = &_element;
+            count++;
+        }
+        
         void add(T* _element){
             // Check for duplicate names
             if((*this)[_element->getName()] != nullptr){
@@ -108,6 +117,13 @@ template<class T> class Array {
                 arr[count] = _array->arr[i];
                 count++;
             }
+        }
+
+        void clearArray(){
+            for(int i = 0; i < count; i++){
+                arr[i] = nullptr;
+            }
+            count = 0;
         }
 
 

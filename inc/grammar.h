@@ -12,12 +12,8 @@
 
 // Clear temporary arrays
 #define CLEAR_TEMP \
-    if(temp_pok.getCount() > 0){\
-        temp_pok = Array<Pokemon>();\
-    }\
-    if(temp_ab.getCount() > 0){\
-        temp_ab = Array<Ability>();\
-    }
+    temp_pok.clearArray();\
+    temp_ab.clearArray();\
 
 // -------------------- Macros -------------------
 
@@ -52,9 +48,11 @@
 #define HEAL
 #define POKEBALL
 
+#define DUEL PRE_EXEC CLEAR_TEMP game.duel()
+
 #define DEAR PRE_EXEC CLEAR_TEMP *(game.getPokemon(
 #define LEARN )) += temp_ab
-#define ABILITY_NAME(x) game.getAbilities().getObj(x)
+#define ABILITY_NAME(x) game.getAbilities()->getObj(x)
 
 // ------------------ Actions ------------------
 #define GET_HP(x) x->getHp()

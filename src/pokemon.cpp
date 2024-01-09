@@ -1,11 +1,6 @@
 #include "../inc/grammar.h"
 
 BEGIN_GAME
-    CREATE POKEMON{ 
-        NAME: "Pikachu",
-        TYPE: "Electric",
-        HP: 100
-    }
 
     CREATE POKEMONS[
         POKEMON{
@@ -19,71 +14,99 @@ BEGIN_GAME
             HP: 1
         },
         POKEMON{
-            NAME: "Bis2",
-            TYPE: "Grass",
-            HP: 1
-        }
+            NAME: "Oiko",
+            TYPE: "Water",
+            HP: 10000 
+        },
+        POKEMON{
+            NAME: "Zmu",
+            TYPE: "Fire",
+            HP: 50
+        },
+        POKEMON{
+            NAME: "Xiwths",
+            TYPE: "Electric",
+            HP: 100
+        } 
     ]
-
-    CREATE POKEMON{
-        NAME: "Oiko",
-        TYPE: "Water",
-        HP: 10000 
-    }
-
-    CREATE POKEMON{
-        NAME: "Zmu",
-        TYPE: "Fire",
-        HP: 50
-    }
-
-    CREATE POKEMON{
-        NAME: "Xiwths",
-        TYPE: "Electric",
-        HP: 100
-    } 
-
-    CREATE ABILITY{
-        NAME: "GAMHSI2",
-        ACTION: START
-            PRINT_HW
-        END
-    }
 
     CREATE ABILITIES[
         ABILITY{
-            NAME: "TEST",
+            NAME: "Klwtsidi",
             ACTION: START
                 PRINT_HW
             END
         },
         ABILITY{
-            NAME: "TEST2",
+            NAME: "Throw",
             ACTION: START
                 PRINT_HW
             END
         },
         ABILITY{
-            NAME: "TEST3",
+            NAME: "Mpounia",
+            ACTION: START
+                PRINT_HW
+            END
+        },
+        ABILITY{
+            NAME: "GAMHSI",
             ACTION: START
                 PRINT_HW
             END
         }
     ]
 
-    DEAR "Pikachu" LEARN[
-        ABILITY_NAME("GAMHSI"),
-        ABILITY_NAME("GAMHSI2"),
-        ABILITY_NAME("TEST"),
-        ABILITY_NAME("TEST2")
-    ]
+    // ;bool _ = true;
+    // enum t{
+    //     α = true
+    // };
+    
+    // // _ = ---α;
+
+    // bool test = _;
+    // attacker^_;
+    // ATTACKER _
 
     DEAR "Papastam" LEARN[
-        ABILITY_NAME("TEST3")
+        ABILITY_NAME("Klwtsidi"),
+        ABILITY_NAME("Throw"),
+        ABILITY_NAME("Mpounia")
     ]
 
-    ;game.getPokemon("Pikachu")->get_ability("GAMHSI")->do_action();
+    DEAR "Bis" LEARN[
+        ABILITY_NAME("Klwtsidi"),
+        ABILITY_NAME("Throw"),
+        ABILITY_NAME("Mpounia"),
+        ABILITY_NAME("GAMHSI")
+    ]
 
-    SHOW game.getPokemons()
+    DEAR "Oiko" LEARN[
+        ABILITY_NAME("Klwtsidi"),
+        ABILITY_NAME("Throw"),
+        ABILITY_NAME("Mpounia")
+    ]
+
+    // ;temp_pok.clearArray();
+    // temp_ab.clearArray();
+    // *(game.getPokemon( "Zmu")) += temp_ab[
+    //     game.getAbilities()->operator[]("Klwtsidi")
+
+    //     // game.getAbilities()->getObj("Throw")
+    // ]
+
+    ;temp_pok.clearArray(); temp_ab.clearArray(); *(game.getPokemon( "Zmu")) += temp_ab[
+        &(game.getAbilities()->getObj("Klwtsidi"))
+        // game.getAbilities()->getObj("Throw")
+    ]
+    
+    ;temp_pok.clearArray(); temp_ab.clearArray(); *(game.getPokemon( "Xiwths")) += temp_ab[
+        &(game.getAbilities()->getObj("Klwtsidi")),
+        &(game.getAbilities()->getObj("Throw"))
+        // game.getAbilities()->getObj("Throw")
+    ]
+    
+
+    DUEL
 
 END_GAME

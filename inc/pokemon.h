@@ -59,7 +59,6 @@ class Pokemon {
         pok_Type type;
         bool in_pokeball;
         int player;
-        // Ability abilities[4];
         Array<Ability> abilities;
     
     public:
@@ -156,13 +155,15 @@ class Pokemon {
 
         // ------------------- Functions -------------------
 
-        char*       getName()       {return name;}
-        int         getHp()         {return hp;}
-        void        setHp(int value){hp = value;}
-        int         getPlayer()     {return player;}
-        const char* getTypestr()       {return typeToStr(type);}
-        pok_Type    getType()       {return type;}
-        bool        isInPokeball()  {return in_pokeball;}
+        char*           getName()           {return name;}
+        int             getHp()             {return hp;}
+        void            setHp(int value)    {hp = value;}
+        int             getPlayer()         {return player;}
+        const char*     getTypestr()        {return typeToStr(type);}
+        pok_Type        getType()           {return type;}
+        bool            isInPokeball()      {return in_pokeball;}
+        Array<Ability>* getAbilities()      {return &abilities;}
+        void            setPos(bool inPoke) {in_pokeball = inPoke;}
 
         Ability* get_ability(const char* ability_name){
             for(int i = 0; i < abilities.getCount(); i++) {

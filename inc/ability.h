@@ -47,6 +47,11 @@ class Ability{
         return arr;
     }
 
+    friend std::ostream& operator<<(std::ostream& os, Ability* ab){
+        os << ab->getName();
+        return os;
+    }
+
     // ------------------- Getters -------------------
     char* getName(){return name;}
 
