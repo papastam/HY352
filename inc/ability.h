@@ -12,9 +12,8 @@ class Ability{
         std::function<void()> action;
 
     public:
-        Ability(const char* _name, std::function<void()> _action){
+        Ability(const char* _name, std::function<void()> _action): action(_action){
             strcpy(name, _name);
-            action = _action;
         }
 
         ~Ability(){

@@ -41,14 +41,7 @@ BEGIN_GAME
         NAME: "Xiwths",
         TYPE: "Electric",
         HP: 100
-    }
-
-    CREATE ABILITY{
-        NAME: "GAMHSI",
-        ACTION: START
-            PRINT_HW
-        END
-    }
+    } 
 
     CREATE ABILITY{
         NAME: "GAMHSI2",
@@ -57,52 +50,26 @@ BEGIN_GAME
         END
     }
 
-    // CREATE ABILITIES[
-    //     ABILITY{
-    //         NAME: "TEST",
-    //         ACTION: START
-    //             PRINT_HW
-    //         END
-    //     },
-    //     ABILITY{
-    //         NAME: "TEST2",
-    //         ACTION: START
-    //             PRINT_HW
-    //         END
-    //     }
-    // ]
-
-    // ;void std::function<void()>::operator+=(std::function<void()> f){
-    //     f();
-    // } 
-
-    // ;std::function<void()>() += [&]()->void{
-    //     std::cout << "Hello World" << std::endl;
-    // }
-
-
-    ; game += new Array<Ability>; game += temp_ab[
-        Ability{
-            "TEST",
-            std::function<void()>([&]()->void{
-                std::cout << "Hello World" << std::endl;
-            })
+    CREATE ABILITIES[
+        ABILITY{
+            NAME: "TEST",
+            ACTION: START
+                PRINT_HW
+            END
         },
-        Ability{
-            "TEST2",
-            std::function<void()>([&]()->void{
-                std::cout << "Hello World" << std::endl;
-            })
+        ABILITY{
+            NAME: "TEST2",
+            ACTION: START
+                PRINT_HW
+            END
         },
-        Ability{
-            "TEST3",
-            std::function<void()>([&]()->void{
-                std::cout << "Hello World" << std::endl;
-            })
+        ABILITY{
+            NAME: "TEST3",
+            ACTION: START
+                PRINT_HW
+            END
         }
     ]
-
-
 
     DEAR "Pikachu" LEARN[
         ABILITY_NAME("GAMHSI"),
@@ -115,14 +82,6 @@ BEGIN_GAME
         ABILITY_NAME("TEST3")
     ]
 
-    // CREATE ABILITY{
-    //     NAME: "TEST",
-    //     ACTION: START
-    //         IF GET_HP(ATTACKER) DO
-    //         END
-
-    //     END
-    // }
     ;game.getPokemon("Pikachu")->get_ability("GAMHSI")->do_action();
 
     SHOW game.getPokemons()

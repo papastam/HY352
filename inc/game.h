@@ -9,10 +9,11 @@ class Game{
         Array<Pokemon> pokemons;
         Array<Ability> abilities;
         int round;
-
-    public:
         Pokemon* attacker;
         Pokemon* defender;
+        bool game_started;
+
+    public:
         
         // ------------------- Constructors -------------------
         Game(){
@@ -21,6 +22,8 @@ class Game{
             abilities = Array<Ability>();
             attacker = nullptr;
             defender = nullptr;
+            game_started = false;
+            round = 0;
         }
 
         // Destructor
@@ -32,12 +35,20 @@ class Game{
         Game(const Game& _game){
             pokemons = _game.pokemons;
             abilities = _game.abilities;
+            attacker = _game.attacker;
+            defender = _game.defender;
+            game_started = _game.game_started;
+            round = _game.round;
         }
 
         // Copy assignment
         Game& operator=(const Game& _game){
             pokemons = _game.pokemons;
             abilities = _game.abilities;
+            attacker = _game.attacker;
+            defender = _game.defender;
+            game_started = _game.game_started;
+            round = _game.round;
             return *this;
         }
 
@@ -45,6 +56,10 @@ class Game{
         Game(Game&& _game){
             pokemons = std::move(_game.pokemons);
             abilities = std::move(_game.abilities);
+            attacker = std::move(_game.attacker);
+            defender = std::move(_game.defender);
+            game_started = std::move(_game.game_started);
+            round = std::move(_game.round);
         }
 
         // --------------------- Operators --------------------
@@ -70,12 +85,14 @@ class Game{
         Array<Pokemon>* getPokemons(){return &pokemons;}
         Array<Ability> getAbilities(){return abilities;}
 
-        Pokemon* getAttacker(){return attacker;}
-        Pokemon* getDefender(){return defender;}
+        Pokemon* getAttacker(){assert(game_started);attacker;}
+        Pokemon* getDefender(){assert(game_started);return defender;}
+        bool getGameStarted(){return game_started;}
 
         // -------------------- DUEL -------------------
 
         void duel(){
+            game_started = true;
             assert(!attacker || !defender);
 
             // EACH player chooses their pokemon
