@@ -163,4 +163,15 @@ class Pokemon {
         const char* getTypestr()       {return typeToStr(type);}
         pok_Type    getType()       {return type;}
         bool        isInPokeball()  {return in_pokeball;}
+
+        Ability* get_ability(const char* ability_name){
+            for(int i = 0; i < abilities.getCount(); i++) {
+                if(!strcmp(abilities[i]->getName(), ability_name)){
+                    return abilities[i];
+                }
+            }
+            return nullptr;
+        }
+
+        
 };
