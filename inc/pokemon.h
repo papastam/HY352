@@ -34,7 +34,6 @@ pok_Type strToType(const char* str){
     }
 }
 
-
 const char* typeToStr(pok_Type type){
     switch(type){
         case Electric:
@@ -65,7 +64,6 @@ class Pokemon {
     
     public:
         // ------------------- Constructors -------------------
-
         Pokemon(const char* _name, const char* _type, int _hp){
             strcpy(name, _name);
             type = strToType(_type);

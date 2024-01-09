@@ -1,6 +1,7 @@
-#define ARRAYSIZE 50
-
+#include <assert.h>
 #include "utils.h"
+
+#define ARRAYSIZE 50
 
 #pragma once
 
@@ -50,6 +51,7 @@ template<class T> class Array {
 
         // ------------------- Operators -------------------
         T* operator[](int i){
+            assert(i < count);
             return arr[i];
         }
 
@@ -108,6 +110,8 @@ template<class T> class Array {
             }
         }
 
+
+        // ------------------- Getters -------------------
         T getObj(const char *name){
             return *(*this)[name];
         }
@@ -115,8 +119,7 @@ template<class T> class Array {
         T getObj(int i){
             return *arr[i];
         }
-
-        // ------------------- Getters -------------------
+        
         int getCount(){
             return count;
         }
