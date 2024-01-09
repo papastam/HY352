@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <functional>
+#include "array.h"
 
 #define NAMESIZE 20
 
@@ -22,6 +23,12 @@ class Ability{
 
     // ------------------- Operators -------------------
 
+    Array<Ability> operator,(Ability _ability){
+            Array<Ability> arr = Array<Ability>();
+            arr.add(this);
+            arr.add(&_ability);
+            return arr;
+        }
     // ------------------- Getters -------------------
     char* getName(){return name;}
 

@@ -50,8 +50,16 @@ BEGIN_GAME
         END
     }
 
+    CREATE ABILITY{
+        NAME: "GAMHSI2",
+        ACTION: START
+            PRINT_HW
+        END
+    }
+
     DEAR "Pikachu" LEARN[
-        ABILITY_NAME("GAMHSI")
+        ABILITY_NAME("GAMHSI"),
+        ABILITY_NAME("GAMHSI2")
     ]
 
     // CREATE ABILITY{
