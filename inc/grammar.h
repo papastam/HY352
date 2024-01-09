@@ -5,6 +5,7 @@
 
 // ------------------- Utulities -----------------
 #define REMOVE_COL false?0 // Remove semicolon
+#define REMOVE_COL_LF false?idk
 
 // Commands that need to be executed before each command
 #define PRE_EXEC ;
@@ -38,11 +39,10 @@
 #define NAME REMOVE_COL
 #define TYPE REMOVE_COL
 #define HP REMOVE_COL
-#define IDK false?idk
 
 #define ABILITY Ability
 #define ABILITIES Array<Ability>; game += temp_ab
-#define ACTION IDK
+#define ACTION REMOVE_COL_LF
 
 #define START [&]()->void{
 #define END }
