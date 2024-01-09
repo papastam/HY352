@@ -17,18 +17,37 @@ class Ability{
             action = _action;
         }
 
-        // void cast_ability(Pokemon* attacker, Pokemon* defender){
-        //     action(attacker, defender)
-        // }
+        ~Ability(){
+            action = nullptr;
+        }
+
+        Ability(const Ability& _ability){
+            strcpy(name, _ability.name);
+            action = _ability.action;
+        }
+
+        Ability& operator=(const Ability& _ability){
+            strcpy(name, _ability.name);
+            action = _ability.action;
+            return *this;
+        }
+
+        Ability(Ability&& _ability){
+            strcpy(name, _ability.name);
+            action = _ability.action;
+            _ability.name[0] = 0;
+            _ability.action = nullptr;
+        }
 
     // ------------------- Operators -------------------
 
     Array<Ability> operator,(Ability _ability){
-            Array<Ability> arr = Array<Ability>();
-            arr.add(this);
-            arr.add(&_ability);
-            return arr;
-        }
+        Array<Ability> arr = Array<Ability>();
+        arr.add(this);
+        arr.add(&_ability);
+        return arr;
+    }
+
     // ------------------- Getters -------------------
     char* getName(){return name;}
 

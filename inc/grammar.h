@@ -9,6 +9,15 @@
 // Commands that need to be executed before each command
 #define PRE_EXEC ;
 
+// Clear temporary arrays
+#define CLEAR_TEMP \
+    if(temp_pok.getCount() > 0){\
+        temp_pok = Array<Pokemon>();\
+    }\
+    if(temp_ab.getCount() > 0){\
+        temp_ab = Array<Ability>();\
+    }
+
 // -------------------- Macros -------------------
 
 #define BEGIN_GAME \
@@ -22,7 +31,7 @@
     return 0; \
     }
 
-#define CREATE PRE_EXEC game += new
+#define CREATE PRE_EXEC CLEAR_TEMP game += new
 #define POKEMON Pokemon
 #define POKEMONS Array<Pokemon>; game += temp_pok
 #define NAME REMOVE_COL
@@ -41,7 +50,7 @@
 #define HEAL
 #define POKEBALL
 
-#define DEAR PRE_EXEC *(game.getPokemon(
+#define DEAR PRE_EXEC CLEAR_TEMP *(game.getPokemon(
 #define LEARN )) += temp_ab
 #define ABILITY_NAME(x) game.getAbilities().getObj(x)
 
