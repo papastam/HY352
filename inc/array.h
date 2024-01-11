@@ -119,6 +119,12 @@ template<class T> class Array {
             }
         }
 
+        void remove_and_rearrange(int index){
+            arr[index] = arr[count];
+            arr[count] = nullptr;
+            count--;
+        }
+
         void clearArray(){
             for(int i = 0; i < count; i++){
                 arr[i] = nullptr;

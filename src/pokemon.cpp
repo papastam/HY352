@@ -95,16 +95,16 @@ BEGIN_GAME
     //     // game.getAbilities()->getObj("Throw")
     // ]
 
-    ;temp_pok.clearArray(); temp_ab.clearArray(); *(game.getPokemon( "Zmu")) += temp_ab[
-        &(game.getAbilities()->getObj("Klwtsidi"))
-        // game.getAbilities()->getObj("Throw")
-    ]
+    // ;temp_pok.clearArray(); temp_ab.clearArray(); *(game.getPokemon( "Zmu")) += temp_ab[
+    //     &(game.getAbilities()->getObj("Klwtsidi"))
+    //     // game.getAbilities()->getObj("Throw")
+    // ]
     
-    ;temp_pok.clearArray(); temp_ab.clearArray(); *(game.getPokemon( "Xiwths")) += temp_ab[
-        &(game.getAbilities()->getObj("Klwtsidi")),
-        &(game.getAbilities()->getObj("Throw"))
-        // game.getAbilities()->getObj("Throw")
-    ]
+    // ;temp_pok.clearArray(); temp_ab.clearArray(); *(game.getPokemon( "Xiwths")) += temp_ab[
+    //     &(game.getAbilities()->getObj("Klwtsidi")),
+    //     &(game.getAbilities()->getObj("Throw"))
+    //     // game.getAbilities()->getObj("Throw")
+    // ]
     
 
     DUEL

@@ -105,97 +105,86 @@ class Game{
             game_started = true;
             assert(!attacker || !defender);
             char selected_name[20];
+            Ability* selected;
 
-            while(1){// EACH player chooses their pokemon
-                std::cout << "Player 1 choose your pokemon:" << std::endl;
-                std::cout << "-----------------------------------------" << std::endl;
-                std::cout << getPokemons() << std::endl;
-                std::cout << "-----------------------------------------" << std::endl;
-                std::cout << "Pokemon name: ";
-                std::cin >> selected_name;
-                if((attacker = getPokemon(selected_name)) != nullptr)
-                    break;
-                else
-                    std::cout << "Pokemon not found, please select a valid pokemon!" << std::endl;        
-            }
+            attacker = getPokemon(select_pokemon(1));
             attacker->setPos(false);
-
-            while(1){
-                std::cout << "Player 2 choose your pokemon:" << std::endl;
-                std::cout << "-----------------------------------------" << std::endl;
-                std::cout << getPokemons() << std::endl;
-                std::cout << "-----------------------------------------" << std::endl;
-                std::cout << "Pokemon name: ";
-                std::cin >> selected_name;
-                if ((defender = getPokemon(selected_name)) != nullptr)
-                    break;
-                else
-                    std::cout << "Pokemon not found, please select a valid pokemon!" << std::endl;
-            }
+            attacker->setPlayer(1);
+            
+            defender = getPokemon(select_pokemon(2));
             defender->setPos(false);
+            defender->setPlayer(2);
             
             while(1) {
                 round++;
 
-                //1. Player 1 chooses an ability to cast
                 std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
                 std::cout << "Round " << round << std::endl;
                 std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
                 
-                // Check if attacker is in pokeball
-                if(attacker->isInPokeball()){
-                    std::cout << attacker->getName() << " is in pokeball and cannot attack" << std::endl;
-                }else{
-                    //2. Action is performed
-                    std::cout << attacker->getName() << " select an ability:" << std::endl;
-                    std::cout << "-----------------------------------------" << std::endl;
-                    std::cout << attacker->getAbilities() << std::endl;
-                    std::cout << "-----------------------------------------" << std::endl;
-                    std::cout << "Ability name: ";
-                    std::cin >> selected_name;
-                    attacker->get_ability(selected_name)->do_action();
+                for(int i = 0; i < 2; i++) {
+
+                    // do necessary actions for any active abilities
+                    attacker->handle_active_abilities();
+
+                    // check for game end after the abilities are triggered (if any)
+                    if(is_dead(defender))
+                        end_game(attacker);
+
+                    selected = select_ability();
+
+                    // if the selected ability is a fnr, cast it and decrease counter (also check if null at the start)
+                    if(!selected && selected->get_fnr() > 0) {
+                        selected->do_action();
+                        selected->decrease_fnr();
+                    }
+
+                    //3. Check if defending pokemon is dead after the ability
+                    if(is_dead(defender))
+                        end_game(attacker);
+                    
+                    //4. Attacker/defender pointers are switched
+                    switch_pointers();
                 }
-
-                // Check for activated abilities
-
-                //3. Check if defending pokemon is dead
-                if(is_dead(defender))
-                    end_game(attacker);
-                
-                //4. Attacker/defender pointers are switched
-                switch_pointers();
-                
-                //5. Player 2 chooses an ability to cast
-                std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
-                std::cout << "Round " << round << std::endl;
-                std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
-
-                // Check if attacker is in pokeball
-                if(attacker->isInPokeball()){
-                    std::cout << attacker->getName() << " is in pokeball and cannot attack" << std::endl;
-                }else{
-                    //6. Action is performed
-                    std::cout << attacker->getName() << " select an ability:" << std::endl;
-                    std::cout << "-----------------------------------------" << std::endl;
-                    std::cout << attacker->getAbilities() << std::endl;
-                    std::cout << "-----------------------------------------" << std::endl;
-                    std::cout << "Ability name: ";
-                    std::cin >> selected_name;
-                    attacker->get_ability(selected_name)->do_action();
-                }
-
-                // Check for activated abilities
-
-                //7. Check if defending pokemon is dead
-                if(is_dead(defender))
-                    end_game(attacker);
-                
-                //8. Attacker/Defender pointers are switched again
-                switch_pointers();
             }
         }
 
         // -------------------- Functions for Duel -------------------
+
+        char* select_pokemon(int player_num) {
+            char selected_name[20];
+            while(1){
+                std::cout << "Player "<< player_num << " choose your pokemon:" << std::endl;
+                std::cout << "-----------------------------------------" << std::endl;
+                std::cout << getPokemons() << std::endl;
+                std::cout << "-----------------------------------------" << std::endl;
+                std::cout << "Pokemon name: ";
+                std::cin >> selected_name;
+                if(getPokemon(selected_name) != nullptr)
+                    break;
+                else
+                    std::cout << "Pokemon not found, please select a valid pokemon!" << std::endl;        
+            }
+            return selected_name;
+        }
+
+        Ability* select_ability(){
+            char selected_name[20];
+
+            if(attacker->isInPokeball()){
+                    std::cout << attacker->getName() << " is in pokeball and cannot attack" << std::endl;
+            }else{
+                //6. Action is performed
+                std::cout << attacker->getName() << " select an ability:" << std::endl;
+                std::cout << "-----------------------------------------" << std::endl;
+                std::cout << attacker->getAbilities() << std::endl;
+                std::cout << "-----------------------------------------" << std::endl;
+                std::cout << "Ability name: ";
+                std::cin >> selected_name;
+                return attacker->get_ability(selected_name);
+            }
+            return nullptr;
+        }
 
         void end_game(Pokemon* winner){
             std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
@@ -215,6 +204,29 @@ class Game{
             Pokemon* tmp = attacker;
             attacker = defender;
             defender = tmp;
+        }
+
+        void print_status() {
+            std::cout << "#####################" << std::endl;
+            std::cout << "Name : " << attacker->getName() << std::endl;
+            std::cout << "HP : " << attacker->getHp() << std::endl;
+            if(attacker->isInPokeball())
+                std::cout << "Pokemon is in Pokeball" << std::endl;
+            else
+                std::cout << "Pokemon is out of Pokeball" << std::endl;
+            std::cout << "#############################" << std::endl;
+            
+            std::cout << std::endl << std::endl;
+
+            std::cout << "#############################" << std::endl;
+            std::cout << "Name : " << attacker->getName() << std::endl;
+            std::cout << "HP : " << attacker->getHp() << std::endl;
+            if(attacker->isInPokeball())
+                std::cout << "Pokemon is in Pokeball" << std::endl;
+            else
+                std::cout << "Pokemon is out of Pokeball" << std::endl;
+            std::cout << "#############################" << std::endl;
+
         }
 
         // int calculate_final_damage(int initial_dmg) {

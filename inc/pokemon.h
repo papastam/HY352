@@ -60,6 +60,7 @@ class Pokemon {
         bool in_pokeball;
         int player;
         Array<Ability> abilities;
+        Array<Ability> active_abilities;
     
     public:
         // ------------------- Constructors -------------------
@@ -159,6 +160,7 @@ class Pokemon {
         int             getHp()             {return hp;}
         void            setHp(int value)    {hp = value;}
         int             getPlayer()         {return player;}
+        void            setPlayer(int i)    {player = i;}
         const char*     getTypestr()        {return typeToStr(type);}
         pok_Type        getType()           {return type;}
         bool            isInPokeball()      {return in_pokeball;}
@@ -174,5 +176,28 @@ class Pokemon {
             return nullptr;
         }
 
+        void handle_active_abilities(){
+            for(int i = 0; i < active_abilities.getCount(); i++) {
+                if(active_abilities[i]->get_anr() > 0) {
+                    active_abilities[i]->decrease_anr();
+                    if(active_abilities[i]->get_anr() == 0)
+                        active_abilities[i]->do_action();
+                }
+                else if (active_abilities[i]->get_fnr() > 0){
+                    active_abilities[i]->do_action();
+                    active_abilities[i]->decrease_fnr();
+                }
+            }
+        }
+
+        void remove_finished_abilities(){
+            for(int i = 0; i < active_abilities.getCount(); i++){
+                // if the ability does not have rounds remaining to do things remove it
+                if(!active_abilities[i]->get_anr() && !active_abilities[i]->get_fnr()) {
+                    active_abilities.remove_and_rearrange(i);
+                    i--; //check the same index again because now it has a new ability
+                }
+            }
+        }
         
 };

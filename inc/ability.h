@@ -10,6 +10,9 @@ class Ability{
     private: 
         char name[20] = {0};
         std::function<void()> action;
+        // we are assuming that both fnr and anr cant be !=0 at the same time
+        int for_num_rounds;
+        int after_num_rounds;
 
     public:
         Ability(const char* _name, std::function<void()> _action): action(_action){
@@ -53,7 +56,11 @@ class Ability{
     }
 
     // ------------------- Getters -------------------
-    char* getName(){return name;}
+    char*   getName()       {return name;}
+    int     get_anr()       {return after_num_rounds;}
+    void    decrease_anr()  {after_num_rounds--;}
+    int     get_fnr()       {return for_num_rounds;}
+    void    decrease_fnr()  {for_num_rounds--;}
 
     // ------------------- Functions -------------------
     void do_action(){
