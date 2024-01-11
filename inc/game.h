@@ -152,7 +152,7 @@ class Game{
         // -------------------- Functions for Duel -------------------
 
         char* select_pokemon(int player_num) {
-            char selected_name[20];
+            char* selected_name = new char[20];
             while(1){
                 std::cout << "Player "<< player_num << " choose your pokemon:" << std::endl;
                 std::cout << "-----------------------------------------" << std::endl;
