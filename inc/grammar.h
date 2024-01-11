@@ -22,36 +22,36 @@
     Game game = Game();\
     Array<Pokemon> temp_pok = Array<Pokemon>();\
     Array<Ability> temp_ab = Array<Ability>();\
-    std::function<void()> temp_lfunc\
+    std::function<void(Pokemon &, Pokemon &)> temp_lfunc\
 
 #define END_GAME \
     ;\
     return 0; \
     }
 
-#define CREATE PRE_EXEC CLEAR_TEMP game += new
-#define POKEMON Pokemon
-#define POKEMONS Array<Pokemon>; game += temp_pok
+#define CREATE PRE_EXEC CLEAR_TEMP game +=
+#define POKEMON *new Pokemon
+#define POKEMONS temp_pok
 #define NAME REMOVE_COL
 #define TYPE REMOVE_COL
 #define HP REMOVE_COL
 
-#define ABILITY Ability
-#define ABILITIES Array<Ability>; game += temp_ab
+#define ABILITY *new Ability
+#define ABILITIES temp_ab
 #define ACTION REMOVE_COL_LF
 
-#define START [&]()->void{
+#define START [&](Pokemon &attacker, Pokemon &defender)->void{
 #define END }
-#define ATTACKER game.getAttacker()
-#define DEFENDER game.getDefender()
-#define DAMAGE
+#define ATTACKER game.getAttacker() +
+#define DEFENDER game.getDefender() +
+#define DAMAGE PRE_EXEC
 #define HEAL
 #define POKEBALL
 
 #define DUEL PRE_EXEC CLEAR_TEMP game.duel()
 
-#define DEAR PRE_EXEC CLEAR_TEMP *(game.getPokemon(
-#define LEARN )) += temp_ab
+#define DEAR PRE_EXEC CLEAR_TEMP game.getPokemon(
+#define LEARN ) += temp_ab
 #define ABILITY_NAME(x) game.getAbilities()->getObj(x)
 
 // ------------------ Actions ------------------

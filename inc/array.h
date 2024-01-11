@@ -56,26 +56,27 @@ template<class T> class Array {
         }
 
         // overload to get a pokemon by name
-        T* operator[](const char* name){
+        T& operator[](const char* name){
             for(int i = 0; i < count; i++){
                 if(strcmp(arr[i]->getName(), name) == 0){
-                    return arr[i];
+                    return *arr[i];
                 }
             }
-            return nullptr;
+            error("Pokemon not found");
+            exit(0);
         }
 
-        Array<T>* operator[](T _element){
+        Array<T>& operator[](T &_element){
             add(_element);
-            return this;
+            return *this;
         }
 
-        Array<T>* operator[](Array<T> _element){
-            add(&_element);
-            return this;
+        Array<T>& operator[](Array<T> &_element){
+            add(_element);
+            return *this;
         }
 
-        Array<T> operator,(T _element){
+        Array<T>& operator,(T &_element){
             add(_element);
             return *this;
         }
@@ -88,41 +89,35 @@ template<class T> class Array {
         }
 
         // ------------------- Methods -------------------
-        void add(T _element){
+        void add(T &_element){
             // Check for duplicate names
-            if((*this)[_element.getName()] != nullptr){
-                error("Pokemon %s already in pokedex", _element.getName());
+            if(exists(_element.getName())){
+                error("Element %s already in the array", _element.getName());
                 return;
             }
             arr[count] = &_element;
             count++;
         }
         
-        void add(T* _element){
-            // Check for duplicate names
-            if((*this)[_element->getName()] != nullptr){
-                error("Pokemon %s already in pokedex", _element->getName());
-                return;
-            }
-            arr[count] = _element;
-            count++;
-        }
+        // void add(T* _element){
+        //     // Check for duplicate names
+        //     if((*this)[_element->getName()] != nullptr){
+        //         error("Pokemon %s already in pokedex", _element->getName());
+        //         return;
+        //     }
+        //     arr[count] = _element;
+        //     count++;
+        // }
 
-        void add(Array* _array){
-            for(int i = 0; i < _array->getCount(); i++){
-                if((*this)[(*_array)[i]->getName()] != nullptr){
-                    error("Pokemon %s already in pokedex", (*_array)[i]->getName());
+        void add(Array &_array){
+            for(int i = 0; i < _array.getCount(); i++){
+                if(exists(_array[i]->getName())){
+                    error("Element %s already in the array", _array[i]->getName());
                     continue;
                 }
-                arr[count] = _array->arr[i];
+                arr[count] = _array.arr[i];
                 count++;
             }
-        }
-
-        void remove_and_rearrange(int index){
-            arr[index] = arr[count];
-            arr[count] = nullptr;
-            count--;
         }
 
         void clearArray(){
@@ -132,13 +127,22 @@ template<class T> class Array {
             count = 0;
         }
 
-
-        // ------------------- Getters -------------------
-        T getObj(const char *name){
-            return *(*this)[name];
+        bool exists(const char* name){
+            for(int i = 0; i < count; i++){
+                if(strcmp(arr[i]->getName(), name) == 0){
+                    return true;
+                }
+            }
+            return false;
         }
 
-        T getObj(int i){
+
+        // ------------------- Getters -------------------
+        T& getObj(const char *name){
+            return (*this)[name];
+        }
+
+        T& getObj(int i){
             return *arr[i];
         }
         

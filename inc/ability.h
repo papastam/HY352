@@ -4,19 +4,22 @@
 
 #define NAMESIZE 20
 
+class Pokemon;
+
 #pragma once
 
 class Ability{
     private: 
         char name[20] = {0};
-        std::function<void()> action;
+        std::function<void(Pokemon &, Pokemon &)> action;
         // we are assuming that both fnr and anr cant be !=0 at the same time
         int for_num_rounds;
         int after_num_rounds;
 
     public:
-        Ability(const char* _name, std::function<void()> _action): action(_action){
+        Ability(const char* _name, std::function<void(Pokemon &, Pokemon &)> _action){
             strcpy(name, _name);
+            action = _action;
         }
 
         ~Ability(){
@@ -43,11 +46,11 @@ class Ability{
 
     // ------------------- Operators -------------------
 
-    Array<Ability> operator,(Ability _ability){
-        Array<Ability> arr = Array<Ability>();
-        arr.add(this);
-        arr.add(&_ability);
-        return arr;
+    Array<Ability>& operator,(Ability &_ability){
+        Array<Ability> *arr = new Array<Ability>();
+        arr->add(*this);
+        arr->add(_ability);
+        return *arr;
     }
 
     friend std::ostream& operator<<(std::ostream& os, Ability* ab){
@@ -63,8 +66,8 @@ class Ability{
     void    decrease_fnr()  {for_num_rounds--;}
 
     // ------------------- Functions -------------------
-    void do_action(){
-        action();
+    void do_action(Pokemon &attacker, Pokemon &defender){
+        action( attacker, defender );
     }
 
 };

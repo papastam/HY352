@@ -12,6 +12,8 @@ class Game{
         Pokemon* attacker;
         Pokemon* defender;
         bool game_started;
+        // active abilities attacker/defender
+        // pending abilities attacker/defender
 
     public:
         
@@ -64,19 +66,19 @@ class Game{
 
         // --------------------- Operators --------------------
 
-        void operator+=(Pokemon* _pokemon){
+        void operator+=(Pokemon &_pokemon){
             pokemons.add(_pokemon);
         }
 
-        void operator+=(Array<Pokemon>* _pokemons){
+        void operator+=(Array<Pokemon> _pokemons){
             pokemons.add(_pokemons);
         }
 
-        void operator+=(Ability* _ability){
+        void operator+=(Ability &_ability){
             abilities.add(_ability);
         }
 
-        void operator+=(Array<Ability>* _abilities){
+        void operator+=(Array<Ability> _abilities){
             abilities.add(_abilities);
         }
 
@@ -85,68 +87,85 @@ class Game{
         Array<Pokemon>* getPokemons()   {return &pokemons;}
         Array<Ability>* getAbilities()  {return &abilities;}
 
-        Pokemon* getAttacker(){assert(game_started);attacker;}
-        Pokemon* getDefender(){assert(game_started);return defender;}
+        Pokemon& getAttacker(){assert(game_started);return *attacker;}
+        Pokemon& getDefender(){assert(game_started);return *defender;}
         bool getGameStarted(){return game_started;}
         
-        Pokemon* getPokemon(const char* name){
+        Pokemon& getPokemon(const char* name){
             for(int i = 0; i < pokemons.getCount(); i++){
                 if(strcmp(pokemons[i]->getName(), name) == 0){
-                    return pokemons[i];
+                    return *pokemons[i];
                 }
             }
             error("Pokemon not found");
-            return nullptr;
+            exit(0);
+        }
+
+        bool pokemon_exists(const char* name){
+            for(int i = 0; i < pokemons.getCount(); i++){
+                if(strcmp(pokemons[i]->getName(), name) == 0){
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        bool ability_exists(const char* name){
+            for(int i = 0; i < abilities.getCount(); i++){
+                if(strcmp(abilities[i]->getName(), name) == 0){
+                    return true;
+                }
+            }
+            return false;
         }
 
         // -------------------- DUEL -------------------
 
         void duel(){
-            game_started = true;
-            assert(!attacker || !defender);
-            char selected_name[20];
-            Ability* selected;
+        //     game_started = true;
+        //     assert(!attacker || !defender);
+        //     char selected_name[20];
+        //     Ability* selected;
 
-            attacker = getPokemon(select_pokemon(1));
-            attacker->setPos(false);
-            attacker->setPlayer(1);
+        //     attacker = getPokemon(select_pokemon(1));
+        //     attacker->setPos(false);
+        //     attacker->setPlayer(1);
             
-            defender = getPokemon(select_pokemon(2));
-            defender->setPos(false);
-            defender->setPlayer(2);
+        //     defender = getPokemon(select_pokemon(2));
+        //     defender->setPos(false);
+        //     defender->setPlayer(2);
             
-            while(1) {
-                round++;
+        //     while(1) {
+        //         round++;
 
-                std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
-                std::cout << "Round " << round << std::endl;
-                std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+        //         std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+        //         std::cout << "Round " << round << std::endl;
+        //         std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
                 
-                for(int i = 0; i < 2; i++) {
+        //         for(int i = 0; i < 2; i++) {
 
-                    // do necessary actions for any active abilities
-                    attacker->handle_active_abilities();
-
-                    // check for game end after the abilities are triggered (if any)
-                    if(is_dead(defender))
-                        end_game(attacker);
-
-                    selected = select_ability();
-
-                    // if the selected ability is a fnr, cast it and decrease counter (also check if null at the start)
-                    if(!selected && selected->get_fnr() > 0) {
-                        selected->do_action();
-                        selected->decrease_fnr();
-                    }
-
-                    //3. Check if defending pokemon is dead after the ability
-                    if(is_dead(defender))
-                        end_game(attacker);
+        //             // do necessary actions for any active abilities
                     
-                    //4. Attacker/defender pointers are switched
-                    switch_pointers();
-                }
-            }
+        //             // check for game end after the abilities are triggered (if any)
+        //             if(is_dead(defender))
+        //                 end_game(attacker);
+
+        //             selected = select_ability();
+
+        //             // if the selected ability is a fnr, cast it and decrease counter (also check if null at the start)
+        //             if(!selected && selected->get_fnr() > 0) {
+        //                 selected->do_action( *attacker, *defender);
+        //                 selected->decrease_fnr();
+        //             }
+
+        //             //3. Check if defending pokemon is dead after the ability
+        //             if(is_dead(defender))
+        //                 end_game(attacker);
+                    
+        //             //4. Attacker/defender pointers are switched
+        //             switch_pointers();
+        //         }
+        //     }
         }
 
         // -------------------- Functions for Duel -------------------
@@ -160,7 +179,7 @@ class Game{
                 std::cout << "-----------------------------------------" << std::endl;
                 std::cout << "Pokemon name: ";
                 std::cin >> selected_name;
-                if(getPokemon(selected_name) != nullptr)
+                if(!pokemon_exists(selected_name))
                     break;
                 else
                     std::cout << "Pokemon not found, please select a valid pokemon!" << std::endl;        

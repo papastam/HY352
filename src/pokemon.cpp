@@ -2,6 +2,12 @@
 
 BEGIN_GAME
 
+    CREATE POKEMON{
+        NAME: "Picachu",
+        TYPE: "Electric",
+        HP: 100
+    }
+
     CREATE POKEMONS[
         POKEMON{
             NAME: "Papastam",
@@ -30,6 +36,30 @@ BEGIN_GAME
         } 
     ]
 
+    // SHOW game.getPokemons();
+
+    // ;game += *new Ability{
+    //     NAME: "Klwtsidi",
+    //     ACTION: START
+    //         PRINT_HW
+    //     END
+    // }
+
+    // ;game += temp_ab[
+    //     *new Ability{
+    //         NAME: "Throw",
+    //         ACTION: START
+    //             PRINT_HW
+    //         END
+    //     },
+    //     *new Ability{
+    //         NAME: "Mpounia",
+    //         ACTION: START
+    //             PRINT_HW
+    //         END
+    //     }
+    // ]
+
     CREATE ABILITIES[
         ABILITY{
             NAME: "Klwtsidi",
@@ -53,20 +83,10 @@ BEGIN_GAME
             NAME: "GAMHSI",
             ACTION: START
                 PRINT_HW
+                ;- attacker + 10;
             END
         }
     ]
-
-    // ;bool _ = true;
-    // enum t{
-    //     α = true
-    // };
-    
-    // // _ = ---α;
-
-    // bool test = _;
-    // attacker^_;
-    // ATTACKER _
 
     DEAR "Papastam" LEARN[
         ABILITY_NAME("Klwtsidi"),
@@ -87,26 +107,28 @@ BEGIN_GAME
         ABILITY_NAME("Mpounia")
     ]
 
-    // ;temp_pok.clearArray();
-    // temp_ab.clearArray();
-    // *(game.getPokemon( "Zmu")) += temp_ab[
-    //     game.getAbilities()->operator[]("Klwtsidi")
+    DEAR "Zmu" LEARN[
+        ABILITY_NAME("Mpounia")
+    ]
 
-    //     // game.getAbilities()->getObj("Throw")
-    // ]
+    DEAR "Xiwths" LEARN[
+        ABILITY_NAME("Klwtsidi"),
+        ABILITY_NAME("Mpounia")
+    ]
 
-    // ;temp_pok.clearArray(); temp_ab.clearArray(); *(game.getPokemon( "Zmu")) += temp_ab[
-    //     &(game.getAbilities()->getObj("Klwtsidi"))
-    //     // game.getAbilities()->getObj("Throw")
-    // ]
+    SHOW game.getPokemons();
+
+    // ;bool _ = true;
+    // enum t{
+    //     α = true
+    // };
     
-    // ;temp_pok.clearArray(); temp_ab.clearArray(); *(game.getPokemon( "Xiwths")) += temp_ab[
-    //     &(game.getAbilities()->getObj("Klwtsidi")),
-    //     &(game.getAbilities()->getObj("Throw"))
-    //     // game.getAbilities()->getObj("Throw")
-    // ]
-    
+    // // _ = ---α;
 
-    DUEL
+    // bool test = _;
+    // attacker^_;
+    // ATTACKER _
+
+    // DUEL
 
 END_GAME
