@@ -253,6 +253,8 @@ class Pokemon {
         void            setPos(bool inPoke) {in_pokeball = inPoke;}
         void            setOpType(pok_Type type) {opponent_type = type;}
         void            setRound(int _round){round = _round;}
+        Array<Ability>* getFnrAbilities()   {return &fnr_abilities;}
+        Array<Ability>* getAnrAbilities()   {return &anr_abilities;}
         void setHp(int _hp) {
             if(_hp > max_hp)
                 hp = max_hp;
