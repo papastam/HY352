@@ -26,12 +26,17 @@ class Ability{
             newly_added = false;
         }
 
-        Ability (int _for_num_rounds, int _after_num_rounds, std::function<void(Pokemon &, Pokemon &)> _action){
-            action = _action;
-            for_num_rounds = _for_num_rounds;
-            after_num_rounds = _after_num_rounds;
-            if(_for_num_rounds>0)newly_added = true;
-            else newly_added = false;
+        Ability (bool forflag, int count){
+            if(forflag){
+                for_num_rounds = count;
+                after_num_rounds = 0;
+                newly_added = true;
+            }
+            else{
+                for_num_rounds = 0;
+                after_num_rounds = count;
+                newly_added = true;
+            }
         }
 
         ~Ability(){
@@ -68,6 +73,11 @@ class Ability{
     friend std::ostream& operator<<(std::ostream& os, Ability* ab){
         os << ab->getName();
         return os;
+    }
+
+    Ability& operator+=(std::function<void(Pokemon &, Pokemon &)> _action){
+        action = _action;
+        return *this;
     }
 
     // ------------------- Getters -------------------
