@@ -118,8 +118,8 @@ template<class T> class Array {
         }
 
         void remove_and_rearrange(int i){
-            arr[i] = arr[count];
-            arr[count] = nullptr;
+            arr[i] = arr[count-1];
+            arr[count-1] = nullptr;
             count--;
         }
 
