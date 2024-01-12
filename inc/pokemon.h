@@ -2,6 +2,7 @@
 #include <stdarg.h>
 #include <iostream>
 #include <string.h>
+#include <cmath>
 
 #include "array.h"
 #include "utils.h"
@@ -54,21 +55,25 @@ const char* typeToStr(pok_Type type){
 
 class Pokemon {
     private:
-        char name[POKEMON_NAME_SIZE]= {0};
+        char name[POKEMON_NAME_SIZE] = {0};
+        int max_hp;
         int hp;
         pok_Type type;
         pok_Type opponent_type;
         bool in_pokeball;
         int player;
         Array<Ability> abilities;
-        Array<Ability> active_abilities;
+        Array<Ability> fnr_abilities;
+        Array<Ability> anr_abilities;
         bool damage_pending;
+        int round;
     
     public:
         // ------------------- Constructors -------------------
         Pokemon(const char* _name, const char* _type, int _hp){
             strcpy(name, _name);
             type = strToType(_type);
+            max_hp = _hp;
             hp = _hp;
             in_pokeball = true;
             abilities = Array<Ability>();
@@ -77,6 +82,7 @@ class Pokemon {
         
         Pokemon(){
             strcpy(name, "Default");
+            max_hp = 10;
             hp = 10;
             type = Electric;
             in_pokeball = true;
@@ -91,6 +97,7 @@ class Pokemon {
         // Copy constructor
         Pokemon(const Pokemon& _pokemon){
             strcpy(name, _pokemon.name);
+            max_hp = _pokemon.max_hp;
             hp = _pokemon.hp;
             type = _pokemon.type;
             in_pokeball = _pokemon.in_pokeball;
@@ -101,6 +108,7 @@ class Pokemon {
         // Copy assignment
         Pokemon& operator=(const Pokemon& _pokemon){
             strcpy(name, _pokemon.name);
+            max_hp = _pokemon.max_hp;
             hp = _pokemon.hp;
             type = _pokemon.type;
             in_pokeball = _pokemon.in_pokeball;
@@ -112,6 +120,7 @@ class Pokemon {
         // Move constructor
         Pokemon(Pokemon&& _pokemon){
             strcpy(name, _pokemon.name);
+            max_hp = _pokemon.max_hp;
             hp = _pokemon.hp;
             type = _pokemon.type;
             in_pokeball = _pokemon.in_pokeball;
@@ -137,12 +146,17 @@ class Pokemon {
         }
 
         Pokemon& operator+(int _hp){
+            printf("INITIAL DMG %d\n", _hp);
             if(damage_pending){
                 damage_pending = false;
-                // TODO: Call the damage function
-                hp -= _hp;
+                int tmp = damage(_hp);
+                printf("FINAL DMG %d\n", tmp);
+                hp -= tmp;
             }else{
-                hp += _hp;
+                if(hp + _hp > max_hp)
+                    hp = max_hp;
+                else
+                    hp += _hp;
             }
             return *this;
         }
@@ -175,53 +189,46 @@ class Pokemon {
 
         // ------------------- Functions -------------------
 
-        // int damage(int initial_dmg) {
-        //     int final_dmg = initial_dmg; // if no modifiers are applied then deal the initial dmg
-            
-        //     if(attacker->getType() == Electric) {
-        //         switch (defender->getType()) {
-        //             case Fire:
+        int damage(int initial_dmg) {
+            int final_dmg = initial_dmg; // if no modifiers are applied then deal the initial dmg
+            printf("opponent type %d\n", opponent_type);
+            if(type == Fire){
+                switch (opponent_type) {
+                    case Electric:
+                        final_dmg = (int)floor((int)floor(initial_dmg * 1.2) * 0.7);
+                        break;
+                    case Water:
+                        final_dmg = (int)floor((int)floor(initial_dmg * 1.15) * 0.93);
+                        break;
+                    default:
+                        final_dmg = (int)floor(initial_dmg * 1.15);
+                        break;
+                }
+            }
+            else if(type == Water){
+                final_dmg = (int)floor(initial_dmg * 1.07);
+                
+                if(opponent_type == Electric)
+                    final_dmg = (int)floor(final_dmg * 0.8);
+            }
+            else if(type == Grass){
+                if(round % 2 == 1){
+                   final_dmg = (int)floor(initial_dmg * 1.07); 
+                }
+                if(opponent_type == Electric) {
+                    printf("ti sto poutso\n");
+                    final_dmg = (int)floor(final_dmg * 0.8);
+                }
+                if(opponent_type == Water)
+                    final_dmg = (int)floor(final_dmg * 0.93);
+            }
+            else if(type == Electric){
+                if(opponent_type == Water)
+                    final_dmg = (int)floor(initial_dmg * 0.93);
+            }
 
-        //                 break;
-        //             case Electric:
-                    
-        //                 break;
-        //             case Grass:
-                    
-        //                 break;
-        //         }
-        //     }
-        //     else if(attacker->getType() == Fire){
-        //         switch (defender->getType()) {
-        //             case Fire:
-
-        //                 break;
-        //             case Electric:
-                    
-        //                 break;
-        //             case Grass:
-                    
-        //                 break;
-        //         }
-        //     }
-        //     else if(attacker->getType() == Water){
-        //         switch (defender->getType()) {
-        //             case Fire:
-
-        //                 break;
-        //             case Electric:
-                    
-        //                 break;
-        //             case Grass:
-                    
-        //                 break;
-        //         }
-        //     }
-            
-            
-        //     return final_dmg;
-
-        // }
+            return final_dmg;
+        }
 
         bool ability_exists(const char* ability_name){
             for(int i = 0; i < abilities.getCount(); i++) {
@@ -233,8 +240,8 @@ class Pokemon {
         }
 
         char*           getName()           {return name;}
+        int             getMaxHp()          {return max_hp;}
         int             getHp()             {return hp;}
-        void            setHp(int value)    {hp = value;}
         int             getPlayer()         {return player;}
         void            setPlayer(int i)    {player = i;}
         const char*     getTypestr()        {return typeToStr(type);}
@@ -243,6 +250,13 @@ class Pokemon {
         Array<Ability>* getAbilities()      {return &abilities;}
         void            setPos(bool inPoke) {in_pokeball = inPoke;}
         void            setOpType(pok_Type type) {opponent_type = type;}
+        void            setRound(int _round){round = _round;}
+        void setHp(int _hp) {
+            if(_hp > max_hp)
+                hp = max_hp;
+            else
+                hp = _hp;
+        }
 
         Ability* get_ability(const char* ability_name){
             for(int i = 0; i < abilities.getCount(); i++) {

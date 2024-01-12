@@ -1,6 +1,7 @@
 #include "pokemon.h"
 #include "ability.h"
 #include <assert.h>
+#include <cmath>
 
 #pragma once
 
@@ -135,7 +136,6 @@ class Game{
 
         void duel(){
             game_started = true;
-            assert(!attacker || !defender);
             char selected_name[20];
             Ability* selected;
 
@@ -152,16 +152,25 @@ class Game{
 
             attacker->setOpType(defender->getType());
             defender->setOpType(attacker->getType());           
+            
+            // assert(!attacker || !defender);
 
             while(1) {
                 round++;
+                attacker->setRound(round);
+                defender->setRound(round);
 
                 std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
                 std::cout << "Round " << round << std::endl;
                 std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
                 
                 for(int i = 0; i < 2; i++) {
+                    printf("ATTACKER: %s\n", attacker->getName());
+                    printf("DEFENDER: %s\n", defender->getName());
 
+                    // add 5% of max hp to attacker if type is grass and round is even
+                    if (attacker->getType() == Grass && round % 2 == 0)
+                        attacker->setHp(attacker->getHp() + (int)floor(attacker->getMaxHp() * 0.05));    
                     // do necessary actions for any active abilities
                     
                     // check for game end after the abilities are triggered (if any)
@@ -170,10 +179,9 @@ class Game{
 
                     selected = select_ability();
 
-                    // if the selected ability is a fnr, cast it and decrease counter (also check if null at the start)
-                    // if(!selected && selected->get_fnr() > 0) {
-                    // }
-                    selected->do_action( *attacker, *defender);
+                    if(selected)
+                        selected->do_action( *attacker, *defender);
+
                     print_status();
 
                     //3. Check if defending pokemon is dead after the ability
@@ -192,9 +200,9 @@ class Game{
             char* selected_name = new char[20];
             while(1){
                 std::cout << "Player "<< player_num << " choose your pokemon:" << std::endl;
-                std::cout << "-----------------------------------------" << std::endl;
+                // std::cout << "-----------------------------------------" << std::endl;
                 std::cout << getPokemons() << std::endl;
-                std::cout << "-----------------------------------------" << std::endl;
+                // std::cout << "-----------------------------------------" << std::endl;
                 std::cout << "Pokemon name: ";
                 std::cin >> selected_name;
                 if(!pokemon_exists(selected_name))
@@ -212,12 +220,14 @@ class Game{
                     std::cout << attacker->getName() << " is in pokeball and cannot attack" << std::endl;
             }else{
                 //6. Action is performed
+                std::cout << std::endl;
                 std::cout << attacker->getName() << " select an ability:" << std::endl;
-                std::cout << "-----------------------------------------" << std::endl;
-                std::cout << attacker->getAbilities() << std::endl;
-                std::cout << "-----------------------------------------" << std::endl;
+                std::cout << "--------------------" << std::endl;
+                std::cout << attacker->getAbilities();
+                std::cout << "--------------------" << std::endl;
                 std::cout << "Ability name: ";
                 std::cin >> selected_name;
+                std::cout << std::endl;
                 return attacker->get_ability(selected_name);
             }
             return nullptr;
@@ -244,7 +254,8 @@ class Game{
         }
 
         void print_status() {
-            std::cout << "#####################" << std::endl;
+            std::cout << std::endl << std::endl;
+            std::cout << "#############################" << std::endl;
             std::cout << "Name : " << attacker->getName() << std::endl;
             std::cout << "HP : " << attacker->getHp() << std::endl;
             if(attacker->isInPokeball())
@@ -263,6 +274,7 @@ class Game{
             else
                 std::cout << "Pokemon is out of Pokeball" << std::endl;
             std::cout << "#############################" << std::endl;
+            std::cout << std::endl << std::endl;
 
         }
 };

@@ -47,6 +47,7 @@ BEGIN_GAME
             NAME: "Throw",
             ACTION: START
                 PRINT_HW
+                POKEBALL DEFENDER _
             END
         },
         ABILITY{
@@ -71,7 +72,8 @@ BEGIN_GAME
     DEAR "Papastam" LEARN[
         ABILITY_NAME("Klwtsidi"),
         ABILITY_NAME("Throw"),
-        ABILITY_NAME("Mpounia")
+        ABILITY_NAME("Mpounia"),
+        ABILITY_NAME("GAMHSI")
     ]
 
     DEAR "Bis" LEARN[
