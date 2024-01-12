@@ -99,16 +99,6 @@ template<class T> class Array {
             count++;
         }
         
-        // void add(T* _element){
-        //     // Check for duplicate names
-        //     if((*this)[_element->getName()] != nullptr){
-        //         error("Pokemon %s already in pokedex", _element->getName());
-        //         return;
-        //     }
-        //     arr[count] = _element;
-        //     count++;
-        // }
-
         void add(Array &_array){
             for(int i = 0; i < _array.getCount(); i++){
                 if(exists(_array[i]->getName())){

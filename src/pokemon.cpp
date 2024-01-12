@@ -36,31 +36,7 @@ BEGIN_GAME
         } 
     ]
 
-    // SHOW game.getPokemons();
-
-    // ;game += *new Ability{
-    //     NAME: "Klwtsidi",
-    //     ACTION: START
-    //         PRINT_HW
-    //     END
-    // }
-
-    // ;game += temp_ab[
-    //     *new Ability{
-    //         NAME: "Throw",
-    //         ACTION: START
-    //             PRINT_HW
-    //         END
-    //     },
-    //     *new Ability{
-    //         NAME: "Mpounia",
-    //         ACTION: START
-    //             PRINT_HW
-    //         END
-    //     }
-    // ]
-
-    CREATE ABILITIES[
+   CREATE ABILITIES[
         ABILITY{
             NAME: "Klwtsidi",
             ACTION: START
@@ -77,13 +53,17 @@ BEGIN_GAME
             NAME: "Mpounia",
             ACTION: START
                 PRINT_HW
+                HEAL ATTACKER 10
             END
         },
         ABILITY{
             NAME: "GAMHSI",
             ACTION: START
                 PRINT_HW
-                ;- attacker + 10;
+                DAMAGE DEFENDER 10
+
+                // POKEBALL ATTACKER _ 
+                // POKEBALL DEFENDER -- -α;
             END
         }
     ]
@@ -116,19 +96,8 @@ BEGIN_GAME
         ABILITY_NAME("Mpounia")
     ]
 
-    SHOW game.getPokemons();
-
-    // ;bool _ = true;
-    // enum t{
-    //     α = true
-    // };
+    // SHOW game.getPokemons();
     
-    // // _ = ---α;
-
-    // bool test = _;
-    // attacker^_;
-    // ATTACKER _
-
-    // DUEL
+    DUEL
 
 END_GAME

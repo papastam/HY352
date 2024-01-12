@@ -15,6 +15,21 @@
     temp_pok.clearArray();\
     temp_ab.clearArray();\
 
+enum PokeballType
+{
+    α = false
+};
+
+PokeballType operator-(PokeballType value)
+{
+    return value;
+}
+
+bool operator--(PokeballType value)
+{
+	return static_cast<bool>(value);
+}
+
 // -------------------- Macros -------------------
 
 #define BEGIN_GAME \
@@ -22,7 +37,8 @@
     Game game = Game();\
     Array<Pokemon> temp_pok = Array<Pokemon>();\
     Array<Ability> temp_ab = Array<Ability>();\
-    std::function<void(Pokemon &, Pokemon &)> temp_lfunc\
+    std::function<void(Pokemon &, Pokemon &)> temp_lfunc;\
+    bool _ = true;\
 
 #define END_GAME \
     ;\
@@ -41,16 +57,16 @@
 #define ACTION REMOVE_COL_LF
 
 #define START [&](Pokemon &attacker, Pokemon &defender)->void{
-#define END }
-#define ATTACKER game.getAttacker() +
-#define DEFENDER game.getDefender() +
-#define DAMAGE PRE_EXEC
-#define HEAL
-#define POKEBALL
+#define END PRE_EXEC }
+#define ATTACKER attacker +
+#define DEFENDER defender +
+#define DAMAGE PRE_EXEC -
+#define HEAL PRE_EXEC
+#define POKEBALL PRE_EXEC
 
 #define DUEL PRE_EXEC CLEAR_TEMP game.duel()
 
-#define DEAR PRE_EXEC CLEAR_TEMP game.getPokemon(
+#define DEAR PRE_EXEC CLEAR_TEMP game.getPokemonRef(
 #define LEARN ) += temp_ab
 #define ABILITY_NAME(x) game.getAbilities()->getObj(x)
 

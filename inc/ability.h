@@ -60,10 +60,6 @@ class Ability{
 
     // ------------------- Getters -------------------
     char*   getName()       {return name;}
-    int     get_anr()       {return after_num_rounds;}
-    void    decrease_anr()  {after_num_rounds--;}
-    int     get_fnr()       {return for_num_rounds;}
-    void    decrease_fnr()  {for_num_rounds--;}
 
     // ------------------- Functions -------------------
     void do_action(Pokemon &attacker, Pokemon &defender){

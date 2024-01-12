@@ -11,6 +11,8 @@ class Game{
         int round;
         Pokemon* attacker;
         Pokemon* defender;
+        Pokemon p1;
+        Pokemon p2;
         bool game_started;
         // active abilities attacker/defender
         // pending abilities attacker/defender
@@ -91,7 +93,17 @@ class Game{
         Pokemon& getDefender(){assert(game_started);return *defender;}
         bool getGameStarted(){return game_started;}
         
-        Pokemon& getPokemon(const char* name){
+        Pokemon& getPokemonRef(const char* name){
+            for(int i = 0; i < pokemons.getCount(); i++){
+                if(strcmp(pokemons[i]->getName(), name) == 0){
+                    return *pokemons[i];
+                }
+            }
+            error("Pokemon not found");
+            exit(0);
+        }
+
+        Pokemon getPokemon(const char* name){
             for(int i = 0; i < pokemons.getCount(); i++){
                 if(strcmp(pokemons[i]->getName(), name) == 0){
                     return *pokemons[i];
@@ -122,50 +134,56 @@ class Game{
         // -------------------- DUEL -------------------
 
         void duel(){
-        //     game_started = true;
-        //     assert(!attacker || !defender);
-        //     char selected_name[20];
-        //     Ability* selected;
+            game_started = true;
+            assert(!attacker || !defender);
+            char selected_name[20];
+            Ability* selected;
 
-        //     attacker = getPokemon(select_pokemon(1));
-        //     attacker->setPos(false);
-        //     attacker->setPlayer(1);
+            p1 = getPokemon(select_pokemon(1));
+            p2 = getPokemon(select_pokemon(2));
             
-        //     defender = getPokemon(select_pokemon(2));
-        //     defender->setPos(false);
-        //     defender->setPlayer(2);
+            attacker = &p1;
+            attacker->setPos(false);
+            attacker->setPlayer(1);
             
-        //     while(1) {
-        //         round++;
+            defender = &p2;
+            defender->setPos(false);
+            defender->setPlayer(2);
 
-        //         std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
-        //         std::cout << "Round " << round << std::endl;
-        //         std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+            attacker->setOpType(defender->getType());
+            defender->setOpType(attacker->getType());           
+
+            while(1) {
+                round++;
+
+                std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+                std::cout << "Round " << round << std::endl;
+                std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
                 
-        //         for(int i = 0; i < 2; i++) {
+                for(int i = 0; i < 2; i++) {
 
-        //             // do necessary actions for any active abilities
+                    // do necessary actions for any active abilities
                     
-        //             // check for game end after the abilities are triggered (if any)
-        //             if(is_dead(defender))
-        //                 end_game(attacker);
+                    // check for game end after the abilities are triggered (if any)
+                    if(is_dead(defender))
+                        end_game(attacker);
 
-        //             selected = select_ability();
+                    selected = select_ability();
 
-        //             // if the selected ability is a fnr, cast it and decrease counter (also check if null at the start)
-        //             if(!selected && selected->get_fnr() > 0) {
-        //                 selected->do_action( *attacker, *defender);
-        //                 selected->decrease_fnr();
-        //             }
+                    // if the selected ability is a fnr, cast it and decrease counter (also check if null at the start)
+                    // if(!selected && selected->get_fnr() > 0) {
+                    // }
+                    selected->do_action( *attacker, *defender);
+                    print_status();
 
-        //             //3. Check if defending pokemon is dead after the ability
-        //             if(is_dead(defender))
-        //                 end_game(attacker);
+                    //3. Check if defending pokemon is dead after the ability
+                    if(is_dead(defender))
+                        end_game(attacker);
                     
-        //             //4. Attacker/defender pointers are switched
-        //             switch_pointers();
-        //         }
-        //     }
+                    //4. Attacker/defender pointers are switched
+                    switch_pointers();
+                }
+            }
         }
 
         // -------------------- Functions for Duel -------------------
@@ -180,9 +198,9 @@ class Game{
                 std::cout << "Pokemon name: ";
                 std::cin >> selected_name;
                 if(!pokemon_exists(selected_name))
-                    break;
-                else
                     std::cout << "Pokemon not found, please select a valid pokemon!" << std::endl;        
+                else
+                    break;
             }
             return selected_name;
         }
@@ -238,64 +256,13 @@ class Game{
             std::cout << std::endl << std::endl;
 
             std::cout << "#############################" << std::endl;
-            std::cout << "Name : " << attacker->getName() << std::endl;
-            std::cout << "HP : " << attacker->getHp() << std::endl;
-            if(attacker->isInPokeball())
+            std::cout << "Name : " << defender->getName() << std::endl;
+            std::cout << "HP : " << defender->getHp() << std::endl;
+            if(defender->isInPokeball())
                 std::cout << "Pokemon is in Pokeball" << std::endl;
             else
                 std::cout << "Pokemon is out of Pokeball" << std::endl;
             std::cout << "#############################" << std::endl;
 
         }
-
-        // int calculate_final_damage(int initial_dmg) {
-        //     int final_dmg = initial_dmg; // if no modifiers are applied then deal the initial dmg
-            
-        //     if(attacker->getType() == Electric) {
-        //         switch (defender->getType()) {
-        //             case Fire:
-
-        //                 break;
-        //             case Electric:
-                    
-        //                 break;
-        //             case Grass:
-                    
-        //                 break;
-        //         }
-        //     }
-        //     else if(attacker->getType() == Fire){
-        //         switch (defender->getType()) {
-        //             case Fire:
-
-        //                 break;
-        //             case Electric:
-                    
-        //                 break;
-        //             case Grass:
-                    
-        //                 break;
-        //         }
-        //     }
-        //     else if(attacker->getType() == Water){
-        //         switch (defender->getType()) {
-        //             case Fire:
-
-        //                 break;
-        //             case Electric:
-                    
-        //                 break;
-        //             case Grass:
-                    
-        //                 break;
-        //         }
-        //     }
-            
-            
-        //     return final_dmg;
-
-        // }
-
-
-
 };

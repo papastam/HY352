@@ -57,10 +57,12 @@ class Pokemon {
         char name[POKEMON_NAME_SIZE]= {0};
         int hp;
         pok_Type type;
+        pok_Type opponent_type;
         bool in_pokeball;
         int player;
         Array<Ability> abilities;
         Array<Ability> active_abilities;
+        bool damage_pending;
     
     public:
         // ------------------- Constructors -------------------
@@ -70,6 +72,7 @@ class Pokemon {
             hp = _hp;
             in_pokeball = true;
             abilities = Array<Ability>();
+            damage_pending = false;
         }
         
         Pokemon(){
@@ -78,6 +81,7 @@ class Pokemon {
             type = Electric;
             in_pokeball = true;
             abilities = Array<Ability>();
+            damage_pending = false;
         }
 
         // Destructor
@@ -91,6 +95,7 @@ class Pokemon {
             type = _pokemon.type;
             in_pokeball = _pokemon.in_pokeball;
             abilities = _pokemon.abilities;
+            damage_pending = _pokemon.damage_pending;
         }
 
         // Copy assignment
@@ -100,6 +105,7 @@ class Pokemon {
             type = _pokemon.type;
             in_pokeball = _pokemon.in_pokeball;
             abilities = _pokemon.abilities;
+            damage_pending = _pokemon.damage_pending;
             return *this;
         }
 
@@ -113,6 +119,7 @@ class Pokemon {
             _pokemon.hp = 0;
             _pokemon.in_pokeball = false;   
             _pokemon.abilities = Array<Ability>();
+            damage_pending = _pokemon.damage_pending;
         }
 
         // -------------------- Operators --------------------
@@ -125,13 +132,23 @@ class Pokemon {
         }
 
         Pokemon& operator-(){
-            hp = 0;
+            damage_pending = true;
             return *this;
         }
 
         Pokemon& operator+(int _hp){
-            hp += _hp;
+            if(damage_pending){
+                damage_pending = false;
+                // TODO: Call the damage function
+                hp -= _hp;
+            }else{
+                hp += _hp;
+            }
             return *this;
+        }
+
+        void operator+(bool pok){
+            in_pokeball = pok;
         }
 
         friend std::ostream& operator<<(std::ostream& os, Pokemon* pok){
@@ -146,15 +163,6 @@ class Pokemon {
             return os;
         }
 
-        // Unused
-        // void operator+=(Ability &_ability){
-        //     if(abilities[_ability.getName()] != nullptr){
-        //         error("Ability %s already exists\n", _ability.getName());
-        //         return;
-        //     }
-        //     abilities.add(_ability);
-        // }
-
         void operator+=(Array<Ability> &_abilities){
             for(int i = 0; i < _abilities.getCount(); i++){
                 if(ability_exists(_abilities[i]->getName())){
@@ -166,6 +174,54 @@ class Pokemon {
         }
 
         // ------------------- Functions -------------------
+
+        // int damage(int initial_dmg) {
+        //     int final_dmg = initial_dmg; // if no modifiers are applied then deal the initial dmg
+            
+        //     if(attacker->getType() == Electric) {
+        //         switch (defender->getType()) {
+        //             case Fire:
+
+        //                 break;
+        //             case Electric:
+                    
+        //                 break;
+        //             case Grass:
+                    
+        //                 break;
+        //         }
+        //     }
+        //     else if(attacker->getType() == Fire){
+        //         switch (defender->getType()) {
+        //             case Fire:
+
+        //                 break;
+        //             case Electric:
+                    
+        //                 break;
+        //             case Grass:
+                    
+        //                 break;
+        //         }
+        //     }
+        //     else if(attacker->getType() == Water){
+        //         switch (defender->getType()) {
+        //             case Fire:
+
+        //                 break;
+        //             case Electric:
+                    
+        //                 break;
+        //             case Grass:
+                    
+        //                 break;
+        //         }
+        //     }
+            
+            
+        //     return final_dmg;
+
+        // }
 
         bool ability_exists(const char* ability_name){
             for(int i = 0; i < abilities.getCount(); i++) {
@@ -186,6 +242,7 @@ class Pokemon {
         bool            isInPokeball()      {return in_pokeball;}
         Array<Ability>* getAbilities()      {return &abilities;}
         void            setPos(bool inPoke) {in_pokeball = inPoke;}
+        void            setOpType(pok_Type type) {opponent_type = type;}
 
         Ability* get_ability(const char* ability_name){
             for(int i = 0; i < abilities.getCount(); i++) {
