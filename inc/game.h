@@ -165,14 +165,27 @@ class Game{
                 std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
                 
                 for(int i = 0; i < 2; i++) {
-                    printf("ATTACKER: %s\n", attacker->getName());
-                    printf("DEFENDER: %s\n", defender->getName());
-
                     // add 5% of max hp to attacker if type is grass and round is even
                     if (attacker->getType() == Grass && round % 2 == 0)
                         attacker->setHp(attacker->getHp() + (int)floor(attacker->getMaxHp() * 0.05));    
-                    // do necessary actions for any active abilities
                     
+                    // do necessary actions for any active FNR abilities
+                    for(int i = 0 ; i < attacker->getFnrAbilities()->getCount(); i++) {
+                        attacker->getFnrAbilities()->getObj(i).do_action(*attacker, *defender);
+                        attacker->getFnrAbilities()->getObj(i).decreaseFnr();
+                        if(attacker->getFnrAbilities()->getObj(i).getFnr() == 0)
+                            attacker->getFnrAbilities()->remove_and_rearrange(i);
+                    }
+
+                    // do necessary actions for any active ANR abilities
+                    for(int i = 0 ; i < attacker->getAnrAbilities()->getCount(); i++) {
+                        attacker->getAnrAbilities()->getObj(i).decreaseAnr();
+                        if(attacker->getAnrAbilities()->getObj(i).getAnr() == 0) {
+                            attacker->getAnrAbilities()->getObj(i).do_action(*attacker, *defender);
+                            attacker->getAnrAbilities()->remove_and_rearrange(i);
+                        }
+                    }
+
                     // check for game end after the abilities are triggered (if any)
                     if(is_dead(defender))
                         end_game(attacker);
@@ -181,6 +194,15 @@ class Game{
 
                     if(selected)
                         selected->do_action( *attacker, *defender);
+
+                    // handle any newly added FNR abilities that need to be executed this round
+                    for(int i = 0; i < attacker->getFnrAbilities()->getCount(); i++) {
+                        if(attacker->getFnrAbilities()->getObj(i).getNewlyAdded()) {
+                            attacker->getFnrAbilities()->getObj(i).do_action(*attacker, *defender);
+                            attacker->getFnrAbilities()->getObj(i).decreaseFnr();
+                            attacker->getFnrAbilities()->getObj(i).setNewlyAdded(false);
+                        }
+                    }
 
                     print_status();
 

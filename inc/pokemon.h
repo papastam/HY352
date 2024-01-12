@@ -246,9 +246,9 @@ class Pokemon {
 
         int damage(int initial_dmg) {
             int final_dmg = initial_dmg; // if no modifiers are applied then deal the initial dmg
-            printf("opponent type %d\n", opponent_type);
-            if(type == Fire){
-                switch (opponent_type) {
+            printf("opponent type %d", opponent_type);
+            if(opponent_type == Fire){
+                switch (type) {
                     case Electric:
                         final_dmg = (int)floor((int)floor(initial_dmg * 1.2) * 0.7);
                         break;
@@ -260,25 +260,25 @@ class Pokemon {
                         break;
                 }
             }
-            else if(type == Water){
+            else if(opponent_type == Water){
                 final_dmg = (int)floor(initial_dmg * 1.07);
                 
-                if(opponent_type == Electric)
+                if(type == Electric)
                     final_dmg = (int)floor(final_dmg * 0.8);
             }
-            else if(type == Grass){
+            else if(opponent_type == Grass){
                 if(round % 2 == 1){
                    final_dmg = (int)floor(initial_dmg * 1.07); 
                 }
-                if(opponent_type == Electric) {
+                if(type == Electric) {
                     printf("ti sto poutso\n");
                     final_dmg = (int)floor(final_dmg * 0.8);
                 }
-                if(opponent_type == Water)
+                if(type == Water)
                     final_dmg = (int)floor(final_dmg * 0.93);
             }
-            else if(type == Electric){
-                if(opponent_type == Water)
+            else if(opponent_type == Electric){
+                if(type == Water)
                     final_dmg = (int)floor(initial_dmg * 0.93);
             }
 
@@ -306,6 +306,8 @@ class Pokemon {
         void            setPos(bool inPoke) {in_pokeball = inPoke;}
         void            setOpType(pok_Type type) {opponent_type = type;}
         void            setRound(int _round){round = _round;}
+        Array<Ability>* getFnrAbilities()   {return &fnr_abilities;}
+        Array<Ability>* getAnrAbilities()   {return &anr_abilities;}
         void setHp(int _hp) {
             if(_hp > max_hp)
                 hp = max_hp;

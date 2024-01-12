@@ -117,6 +117,12 @@ template<class T> class Array {
             count = 0;
         }
 
+        void remove_and_rearrange(int i){
+            arr[i] = arr[count];
+            arr[count] = nullptr;
+            count--;
+        }
+
         bool exists(const char* name){
             for(int i = 0; i < count; i++){
                 if(strcmp(arr[i]->getName(), name) == 0){

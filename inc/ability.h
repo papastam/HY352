@@ -75,6 +75,10 @@ class Ability{
     int     getFnr()        {return for_num_rounds;}
     int     getAnr()        {return after_num_rounds;}
     void    setName(char* _name) {strcpy(name, _name);}
+    void    decreaseFnr()   {for_num_rounds--;}
+    void    decreaseAnr()   {after_num_rounds--;}
+    bool    getNewlyAdded() {return newly_added;}
+    void    setNewlyAdded(bool _newly_added) {newly_added = _newly_added;}
 
     // ------------------- Functions -------------------
     void do_action(Pokemon &attacker, Pokemon &defender){
