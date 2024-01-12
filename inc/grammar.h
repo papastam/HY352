@@ -98,8 +98,8 @@ bool operator--(PokeballType value)
 // FOR 5 ROUNDS DO
 //     DAMAGE DEFENDER 20
 // END
-#define FOR PRE_EXEC attacker += *new Ability{
-#define ROUNDS ,0,[&](Pokemon &attacker, Pokemon &defender
+#define FOR PRE_EXEC attacker += *new Ability{1,
+#define ROUNDS ,[&](Pokemon &attacker, Pokemon &defender
 // #define DO ){ already defined
 // #define END ;}} already defined
 
@@ -107,7 +107,7 @@ bool operator--(PokeballType value)
 // AFTER 5 ROUNDS DO
 //     POKEBALL DEFENDER ---a
 // END
-#define AFTER ;for(int i = 0; i < 
+#define AFTER PRE_EXEC attacker += *new Ability{0,
 // #define ROUNDS ; i++ already defined
 // #define DO ){} already defined
 // #define END ;}} already defined

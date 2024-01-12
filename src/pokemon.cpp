@@ -31,6 +31,11 @@ BEGIN_GAME
 
     CREATE ABILITIES[
         ABILITY{
+            NAME: "Skip",
+            ACTION: START
+            END
+        },
+        ABILITY{
             NAME: "Takeout",
             ACTION: START
                 POKEBALL ATTACKER ---α
@@ -50,20 +55,17 @@ BEGIN_GAME
         },
         ABILITY{
             NAME: "Damage10",
-            ACTION: START
-
-                DAMAGE DEFENDER 10
-                
-                // ;attacker += *new Ability{
-                //     5,
-                //     0,
-                //     [&](Pokemon &attacker, Pokemon &defender){
-                //         DAMAGE DEFENDER 10;
-                //     }
-                // };
-                   
+            ACTION: START                   
                 FOR 5 ROUNDS DO
                     DAMAGE DEFENDER 10
+                END
+            END
+        },
+        ABILITY{
+            NAME: "Damage50",
+            ACTION: START                   
+                FOR 3 ROUNDS DO
+                    DAMAGE DEFENDER 50
                 END
             END
         }
@@ -73,14 +75,18 @@ BEGIN_GAME
         ABILITY_NAME("Takeout"),
         ABILITY_NAME("Store"),
         ABILITY_NAME("Heal10"),
-        ABILITY_NAME("Damage10")
+        ABILITY_NAME("Damage10"),
+        ABILITY_NAME("Damage50"),
+        ABILITY_NAME("Skip")
     ]
 
     DEAR "Bis" LEARN[
         ABILITY_NAME("Takeout"),
         ABILITY_NAME("Store"),
         ABILITY_NAME("Heal10"),
-        ABILITY_NAME("Damage10")
+        ABILITY_NAME("Damage10"),
+        ABILITY_NAME("Damage50"),
+        ABILITY_NAME("Skip")
     ]
 
     DEAR "Oiko" LEARN[
