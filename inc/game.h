@@ -222,12 +222,12 @@ class Game{
                         }
                     }
 
+                    print_status();
 
                     //3. Check if defending pokemon is dead after the ability
                     if(is_dead(defender))
                         end_game(attacker);
                     
-                    print_status();
                     
                     //4. Attacker/defender pointers are switched
                     switch_pointers();
