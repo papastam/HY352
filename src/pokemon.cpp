@@ -1,13 +1,6 @@
 #include "../inc/grammar.h"
 
 BEGIN_GAME
-
-    CREATE POKEMON{
-        NAME: "Picachu",
-        TYPE: "Electric",
-        HP: 100
-    }
-
     CREATE POKEMONS[
         POKEMON{
             NAME: "Papastam",
@@ -38,64 +31,58 @@ BEGIN_GAME
 
    CREATE ABILITIES[
         ABILITY{
-            NAME: "Klwtsidi",
+            NAME: "Takeout",
             ACTION: START
-                PRINT_HW
+                POKEBALL ATTACKER ---α
             END
         },
         ABILITY{
-            NAME: "Throw",
+            NAME: "Store",
             ACTION: START
-                PRINT_HW
                 POKEBALL DEFENDER _
             END
         },
         ABILITY{
-            NAME: "Mpounia",
+            NAME: "Heal10",
             ACTION: START
-                PRINT_HW
                 HEAL ATTACKER 10
             END
         },
         ABILITY{
-            NAME: "GAMHSI",
+            NAME: "Damage10",
             ACTION: START
-                PRINT_HW
                 DAMAGE DEFENDER 10
 
-                // POKEBALL ATTACKER _ 
-                // POKEBALL DEFENDER -- -α;
             END
         }
     ]
 
     DEAR "Papastam" LEARN[
-        ABILITY_NAME("Klwtsidi"),
-        ABILITY_NAME("Throw"),
-        ABILITY_NAME("Mpounia"),
-        ABILITY_NAME("GAMHSI")
+        ABILITY_NAME("Takeout"),
+        ABILITY_NAME("Store"),
+        ABILITY_NAME("Heal10"),
+        ABILITY_NAME("Damage10")
     ]
 
     DEAR "Bis" LEARN[
-        ABILITY_NAME("Klwtsidi"),
-        ABILITY_NAME("Throw"),
-        ABILITY_NAME("Mpounia"),
-        ABILITY_NAME("GAMHSI")
+        ABILITY_NAME("Takeout"),
+        ABILITY_NAME("Store"),
+        ABILITY_NAME("Heal10"),
+        ABILITY_NAME("Damage10")
     ]
 
     DEAR "Oiko" LEARN[
-        ABILITY_NAME("Klwtsidi"),
-        ABILITY_NAME("Throw"),
-        ABILITY_NAME("Mpounia")
+        ABILITY_NAME("Takeout"),
+        ABILITY_NAME("Store")
     ]
 
     DEAR "Zmu" LEARN[
-        ABILITY_NAME("Mpounia")
+        ABILITY_NAME("Takeout")
     ]
 
     DEAR "Xiwths" LEARN[
-        ABILITY_NAME("Klwtsidi"),
-        ABILITY_NAME("Mpounia")
+        ABILITY_NAME("Heal10"),
+        ABILITY_NAME("Damage10")
     ]
 
     // SHOW game.getPokemons();
