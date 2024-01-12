@@ -72,9 +72,9 @@ bool operator--(PokeballType value)
 
 // ------------------ Actions ------------------
 #define GET_HP(x) (x 0).getHp()
-#define GET_NAME(x) x->getName()
-#define GET_TYPE(x) x->getTypestr()
-#define IS_IN_POKEBALL(x) x->isInPokeball()
+#define GET_NAME(x) (x 0).getName()
+#define GET_TYPE(x) (x 0).getTypestr()
+#define IS_IN_POKEBALL(x) (x 0).isInPokeball()
 
 // Logical operators
 // AND(GET_TYPE(ATTACKER) == "Electric", GET_HP(ATTACKER) > 20)
