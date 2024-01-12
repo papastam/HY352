@@ -98,7 +98,7 @@ template<class T> class Array {
             arr[count] = &_element;
             count++;
         }
-        
+
         void add(Array &_array){
             for(int i = 0; i < _array.getCount(); i++){
                 if(exists(_array[i]->getName())){
@@ -131,7 +131,6 @@ template<class T> class Array {
             }
             return false;
         }
-
 
         // ------------------- Getters -------------------
         T& getObj(const char *name){

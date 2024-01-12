@@ -26,8 +26,7 @@ class Ability{
             newly_added = false;
         }
 
-        Ability (bool forflag, int count, std::function<void(Pokemon &, Pokemon &)> _action){
-            action = _action;
+        Ability (bool forflag, int count){
             if(forflag){
                 for_num_rounds = count;
                 after_num_rounds = 0;
@@ -74,6 +73,11 @@ class Ability{
     friend std::ostream& operator<<(std::ostream& os, Ability* ab){
         os << ab->getName();
         return os;
+    }
+
+    Ability& operator+=(std::function<void(Pokemon &, Pokemon &)> _action){
+        action = _action;
+        return *this;
     }
 
     // ------------------- Getters -------------------

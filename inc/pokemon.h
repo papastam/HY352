@@ -171,12 +171,9 @@ class Pokemon {
         }
 
         Pokemon& operator+(int _hp){
-            printf("INITIAL DMG %d\n", _hp);
             if(damage_pending){
                 damage_pending = false;
-                int tmp = damage(_hp);
-                printf("FINAL DMG %d\n", tmp);
-                hp -= tmp;
+                hp -= damage(_hp);
             }else{
                 if(hp + _hp > max_hp)
                     hp = max_hp;
@@ -193,11 +190,11 @@ class Pokemon {
         friend std::ostream& operator<<(std::ostream& os, Pokemon* pok){
             os << "  - " << pok->getName() << " (" << pok->getTypestr() << ", HP: " << pok->getHp() << ")";
             if(pok->abilities.getCount() != 0){
-                os << " [Abilities: ";
+                os << Colors.italic << " [Abilities: ";
                 for(int i = 0; i < pok->abilities.getCount(); i++){
                     os << pok->abilities[i]->getName() << " ";
                 }
-                os << "]";
+                os << "]" << Colors.reset;
             }
             return os;
         }
@@ -246,7 +243,6 @@ class Pokemon {
 
         int damage(int initial_dmg) {
             int final_dmg = initial_dmg; // if no modifiers are applied then deal the initial dmg
-            printf("opponent type %d", opponent_type);
             if(opponent_type == Fire){
                 switch (type) {
                     case Electric:
@@ -271,7 +267,6 @@ class Pokemon {
                    final_dmg = (int)floor(initial_dmg * 1.07); 
                 }
                 if(type == Electric) {
-                    printf("ti sto poutso\n");
                     final_dmg = (int)floor(final_dmg * 0.8);
                 }
                 if(type == Water)

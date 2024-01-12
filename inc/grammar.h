@@ -56,8 +56,8 @@ bool operator--(PokeballType value)
 #define ABILITIES temp_ab
 #define ACTION REMOVE_COL_LF
 
-#define START [&](Pokemon &attacker, Pokemon &defender)->void{{
-#define END PRE_EXEC }}
+#define START [&](Pokemon &attacker, Pokemon &defender)->void{
+#define END PRE_EXEC }
 #define ATTACKER attacker +
 #define DEFENDER defender +
 #define DAMAGE PRE_EXEC -
@@ -71,7 +71,7 @@ bool operator--(PokeballType value)
 #define ABILITY_NAME(x) game.getAbilities()->getObj(x)
 
 // ------------------ Actions ------------------
-#define GET_HP(x) x->getHp()
+#define GET_HP(x) (x 0).getHp()
 #define GET_NAME(x) x->getName()
 #define GET_TYPE(x) x->getTypestr()
 #define IS_IN_POKEBALL(x) x->isInPokeball()
@@ -99,7 +99,7 @@ bool operator--(PokeballType value)
 //     DAMAGE DEFENDER 20
 // END
 #define FOR PRE_EXEC attacker += *new Ability{1,
-#define ROUNDS ,[&](Pokemon &attacker, Pokemon &defender
+#define ROUNDS } += [&](Pokemon &attacker, Pokemon &defender
 // #define DO ){ already defined
 // #define END ;}} already defined
 
