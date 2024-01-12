@@ -1,154 +1,143 @@
 #include "../inc/grammar.h"
 
 BEGIN_GAME
-    // CREATE POKEMONS[
-    //     POKEMON{
-    //         NAME: "Papastam",
-    //         TYPE: "Electric",
-    //         HP: 1000
-    //     },
-    //     POKEMON{
-    //         NAME: "Bis",
-    //         TYPE: "Grass",
-    //         HP: 1000
-    //     },
-    //     POKEMON{
-    //         NAME: "Oiko",
-    //         TYPE: "Water",
-    //         HP: 10000 
-    //     },
-    //     POKEMON{
-    //         NAME: "Zmu",
-    //         TYPE: "Fire",
-    //         HP: 50
-    //     },
-    //     POKEMON{
-    //         NAME: "Xiwths",
-    //         TYPE: "Electric",
-    //         HP: 100
-    //     } 
-    // ]
-
-    // CREATE ABILITIES[
-    //     ABILITY{
-    //         NAME: "Skip",
-    //         ACTION: START
-    //         END
-    //     },
-    //     ABILITY{
-    //         NAME: "Takeout",
-    //         ACTION: START
-    //             POKEBALL ATTACKER ---α
-    //         END
-    //     },
-    //     ABILITY{
-    //         NAME: "Store",
-    //         ACTION: START
-    //             POKEBALL DEFENDER _
-    //         END
-    //     },
-    //     ABILITY{
-    //         NAME: "Heal10",
-    //         ACTION: START
-    //             HEAL ATTACKER 10
-    //         END
-    //     },
-    //     ABILITY{
-    //         NAME: "Damage10",
-    //         ACTION: START
-    //             FOR 5 ROUNDS DO
-    //                 DAMAGE DEFENDER 10
-    //             END
-    //         END
-    //     },
-    //     ABILITY{
-    //         NAME: "Damage50",
-    //         ACTION: START                   
-    //             FOR 3 ROUNDS DO
-    //                 DAMAGE DEFENDER 50
-    //             END
-    //         END
-    //     }
-    // ]
-
-    // DEAR "Papastam" LEARN[
-    //     ABILITY_NAME("Takeout"),
-    //     ABILITY_NAME("Store"),
-    //     ABILITY_NAME("Heal10"),
-    //     ABILITY_NAME("Damage10"),
-    //     ABILITY_NAME("Damage50"),
-    //     ABILITY_NAME("Skip")
-    // ]
-
-    // DEAR "Bis" LEARN[
-    //     ABILITY_NAME("Takeout"),
-    //     ABILITY_NAME("Store"),
-    //     ABILITY_NAME("Heal10"),
-    //     ABILITY_NAME("Damage10"),
-    //     ABILITY_NAME("Damage50"),
-    //     ABILITY_NAME("Skip")
-    // ]
-
-    // DEAR "Oiko" LEARN[
-    //     ABILITY_NAME("Takeout"),
-    //     ABILITY_NAME("Store")
-    // ]
-
-    // DEAR "Zmu" LEARN[
-    //     ABILITY_NAME("Takeout")
-    // ]
-
-    // DEAR "Xiwths" LEARN[
-    //     ABILITY_NAME("Heal10"),
-    //     ABILITY_NAME("Damage10")
-    // ]
-
-    // DUEL
-
-
     CREATE POKEMONS[
         POKEMON{
-            NAME : "KRYSTALLIA",
-            TYPE : "Fire",
-            HP : 100,
+            NAME: "Papastam",
+            TYPE: "Electric",
+            HP: 1000
         },
         POKEMON{
-            NAME : "PAPASTAMOS",
-            TYPE : "Electric",
-            HP : 100,
+            NAME: "Bis",
+            TYPE: "Grass",
+            HP: 10
+        },
+        POKEMON{
+            NAME: "Oiko",
+            TYPE: "Water",
+            HP: 10000 
+        },
+        POKEMON{
+            NAME: "Zmu",
+            TYPE: "Fire",
+            HP: 100
+        },
+        POKEMON{
+            NAME: "Xiwths",
+            TYPE: "Electric",
+            HP: 1000
         }
     ]
 
     CREATE ABILITIES[
         ABILITY{
-            NAME : "SEXUALITY",
-            ACTION : START
-                DAMAGE DEFENDER 5
-                AFTER 1 ROUNDS DO 
-                    DAMAGE DEFENDER 10
-                END
-                AFTER 2 ROUNDS DO 
-                    DAMAGE DEFENDER 15
-                END
-            
+            NAME: "Punch",
+            ACTION: START
+                SHOW "Damaged 50 HP"
+                DAMAGE DEFENDER 50
             END
         },
         ABILITY{
-            NAME : "EVNOUXISMOS",
-            ACTION : START
-                IF GET_HP(DEFENDER) < 40 DO
-                    DAMAGE DEFENDER 50
+            NAME: "Poison",
+            ACTION: START
+                SHOW "Damage 10HP and 5HP for 5 rounds"
+                DAMAGE DEFENDER 10
+                FOR 5 ROUNDS DO
+                    DAMAGE DEFENDER 10
                 END
+            END
+        },
+        ABILITY{
+            NAME: "Heal",
+            ACTION: START
+                SHOW "Heal 30HP"
+                HEAL ATTACKER 30
+            END
+        },
+        ABILITY{
+            NAME: "Confront",
+            ACTION: START
+                SHOW "Store in Pokeball for 3 rounds"
+                POKEBALL DEFENDER _
+                AFTER 3 ROUNDS DO
+                    POKEBALL DEFENDER ---α
+                END
+            END
+        },
+        ABILITY{
+            NAME: "Thunder",
+            ACTION: START
+                IF AND(GET_TYPE(ATTACKER) == "Electric", GET_HP(ATTACKER) > 20) DO
+                    SHOW "DAAMAGED 100 HP"
+                    DAMAGE DEFENDER 100
+                END
+            END
+        },
+        ABILITY{
+            NAME: "SelfStab",
+            ACTION: START
+                SHOW "Damaged 3 HP for 5 rounds"
+                FOR 5 ROUNDS DO
+                    DAMAGE ATTACKER 3
+                END
+            END
+        },
+        ABILITY{
+            NAME: "Execute",
+            ACTION: START
+                IF GET_HP(DEFENDER) < 50 DO
+                    SHOW "You are dead"
+                    DAMAGE DEFENDER 10000000
+                END
+            END
+        },
+        ABILITY{
+            NAME: "Skip",
+            ACTION: START
+            SHOW "Skiped turn"
             END
         }
     ]
 
-    DEAR "PAPASTAMOS" LEARN[
-        ABILITY_NAME("SEXUALITY"),
-        ABILITY_NAME("EVNOUXISMOS")
+    DEAR "Papastam" LEARN[
+        ABILITY_NAME("Punch"),
+        ABILITY_NAME("Poison"),
+        ABILITY_NAME("Heal"),
+        ABILITY_NAME("Confront"),
+        ABILITY_NAME("Execute"),
+        ABILITY_NAME("Skip")
     ]
-    DEAR "KRYSTALLIA" LEARN[
-        ABILITY_NAME("SEXUALITY")
+
+    DEAR "Bis" LEARN[
+        ABILITY_NAME("Punch"),
+        ABILITY_NAME("Poison"),
+        ABILITY_NAME("Heal"),
+        ABILITY_NAME("Confront"),
+        ABILITY_NAME("Skip")
+    ]
+
+    DEAR "Oiko" LEARN[
+        ABILITY_NAME("Punch"),
+        ABILITY_NAME("Heal"),
+        ABILITY_NAME("Thunder"),
+        ABILITY_NAME("Execute"),
+        ABILITY_NAME("Skip")
+    ]
+
+    DEAR "Xiwths" LEARN[
+        ABILITY_NAME("Punch"),
+        ABILITY_NAME("Heal"),
+        ABILITY_NAME("Confront"),
+        ABILITY_NAME("Execute"),
+        ABILITY_NAME("Skip")
+    ]
+
+    DEAR "Zmu" LEARN[
+        ABILITY_NAME("Punch"),
+        ABILITY_NAME("Heal"),
+        ABILITY_NAME("SelfStab"),
+        ABILITY_NAME("Execute"),
+        ABILITY_NAME("Skip")
     ]
 
     DUEL
