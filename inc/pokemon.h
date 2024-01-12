@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string.h>
 #include <cmath>
+#include <assert.h>
 
 #include "array.h"
 #include "utils.h"
@@ -65,6 +66,8 @@ class Pokemon {
         Array<Ability> abilities;
         Array<Ability> fnr_abilities;
         Array<Ability> anr_abilities;
+        int fnr_cnt;
+        int anr_cnt;
         bool damage_pending;
         int round;
     
@@ -79,6 +82,10 @@ class Pokemon {
             abilities = Array<Ability>();
             damage_pending = false;
             round = 0;
+            fnr_abilities = Array<Ability>();
+            anr_abilities = Array<Ability>();
+            fnr_cnt = 0;
+            anr_cnt = 0;
         }
         
         Pokemon(){
@@ -90,6 +97,10 @@ class Pokemon {
             abilities = Array<Ability>();
             damage_pending = false;
             round = 0;
+            fnr_abilities = Array<Ability>();
+            anr_abilities = Array<Ability>();
+            fnr_cnt = 0;
+            anr_cnt = 0;
         }
 
         // Destructor
@@ -105,6 +116,10 @@ class Pokemon {
             in_pokeball = _pokemon.in_pokeball;
             abilities = _pokemon.abilities;
             damage_pending = _pokemon.damage_pending;
+            fnr_abilities = _pokemon.fnr_abilities;
+            anr_abilities = _pokemon.anr_abilities;
+            fnr_cnt = _pokemon.fnr_cnt;
+            anr_cnt = _pokemon.anr_cnt;
         }
 
         // Copy assignment
@@ -116,6 +131,10 @@ class Pokemon {
             in_pokeball = _pokemon.in_pokeball;
             abilities = _pokemon.abilities;
             damage_pending = _pokemon.damage_pending;
+            fnr_abilities = _pokemon.fnr_abilities;
+            anr_abilities = _pokemon.anr_abilities;
+            fnr_cnt = _pokemon.fnr_cnt;
+            anr_cnt = _pokemon.anr_cnt;
             return *this;
         }
 
@@ -131,6 +150,10 @@ class Pokemon {
             _pokemon.in_pokeball = false;   
             _pokemon.abilities = Array<Ability>();
             damage_pending = _pokemon.damage_pending;
+            fnr_abilities = _pokemon.fnr_abilities;
+            anr_abilities = _pokemon.anr_abilities;
+            fnr_cnt = _pokemon.fnr_cnt;
+            anr_cnt = _pokemon.anr_cnt;
         }
 
         // -------------------- Operators --------------------
@@ -186,6 +209,36 @@ class Pokemon {
                     continue;
                 }
                 abilities.add(*_abilities[i]);
+            }
+        }
+
+        void operator+=(Ability &_ability){
+            assert(_ability.getFnr() != 0 || _ability.getAnr() != 0);
+            
+            if( _ability.getFnr() != 0 ){ 
+
+                char *temp = new char[POKEMON_NAME_SIZE];
+                sprintf(temp, "TEMP_FOR_%d", fnr_cnt++); 
+                _ability.setName(temp);
+
+                if(ability_exists(_ability.getName())){
+                    error("Ability %s already exists\n", _ability.getName());
+                    return;
+                }
+
+                fnr_abilities.add(_ability);
+            } else {
+
+                char *temp = new char[POKEMON_NAME_SIZE];
+                sprintf(temp, "TEMP_AFTER_%d", anr_cnt++); 
+                _ability.setName(temp); 
+
+                if(ability_exists(_ability.getName())){
+                    error("Ability %s already exists\n", _ability.getName());
+                    return;
+                }
+
+                anr_abilities.add(_ability);
             }
         }
 

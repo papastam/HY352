@@ -56,8 +56,8 @@ bool operator--(PokeballType value)
 #define ABILITIES temp_ab
 #define ACTION REMOVE_COL_LF
 
-#define START [&](Pokemon &attacker, Pokemon &defender)->void{
-#define END PRE_EXEC }
+#define START [&](Pokemon &attacker, Pokemon &defender)->void{{
+#define END PRE_EXEC }}
 #define ATTACKER attacker +
 #define DEFENDER defender +
 #define DAMAGE PRE_EXEC -
@@ -92,16 +92,16 @@ bool operator--(PokeballType value)
 #define DO ){
 #define ELSE } else {
 #define ELSE_IF } else if(
-// #define END } already defined
+// #define END ;}} already defined
 
 // Loops
 // FOR 5 ROUNDS DO
 //     DAMAGE DEFENDER 20
 // END
-#define FOR ;for(int i = 0; i <
-#define ROUNDS ; i++
+#define FOR PRE_EXEC attacker += *new Ability{
+#define ROUNDS ,0,[&](Pokemon &attacker, Pokemon &defender
 // #define DO ){ already defined
-// #define END } already defined
+// #define END ;}} already defined
 
 // After
 // AFTER 5 ROUNDS DO
@@ -110,6 +110,7 @@ bool operator--(PokeballType value)
 #define AFTER ;for(int i = 0; i < 
 // #define ROUNDS ; i++ already defined
 // #define DO ){} already defined
+// #define END ;}} already defined
 
 // Print
 // SHOW GET_NAME(ATTACKER) 

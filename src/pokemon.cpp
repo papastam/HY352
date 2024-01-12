@@ -5,12 +5,12 @@ BEGIN_GAME
         POKEMON{
             NAME: "Papastam",
             TYPE: "Electric",
-            HP: 10
+            HP: 1000
         },
         POKEMON{
             NAME: "Bis",
             TYPE: "Grass",
-            HP: 1
+            HP: 1000
         },
         POKEMON{
             NAME: "Oiko",
@@ -29,7 +29,7 @@ BEGIN_GAME
         } 
     ]
 
-   CREATE ABILITIES[
+    CREATE ABILITIES[
         ABILITY{
             NAME: "Takeout",
             ACTION: START
@@ -51,8 +51,20 @@ BEGIN_GAME
         ABILITY{
             NAME: "Damage10",
             ACTION: START
-                DAMAGE DEFENDER 10
 
+                DAMAGE DEFENDER 10
+                
+                // ;attacker += *new Ability{
+                //     5,
+                //     0,
+                //     [&](Pokemon &attacker, Pokemon &defender){
+                //         DAMAGE DEFENDER 10;
+                //     }
+                // };
+                   
+                FOR 5 ROUNDS DO
+                    DAMAGE DEFENDER 10
+                END
             END
         }
     ]

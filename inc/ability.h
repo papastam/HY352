@@ -15,11 +15,23 @@ class Ability{
         // we are assuming that both fnr and anr cant be !=0 at the same time
         int for_num_rounds;
         int after_num_rounds;
+        bool newly_added;
 
     public:
         Ability(const char* _name, std::function<void(Pokemon &, Pokemon &)> _action){
             strcpy(name, _name);
             action = _action;
+            for_num_rounds = 0;
+            after_num_rounds = 0;
+            newly_added = false;
+        }
+
+        Ability (int _for_num_rounds, int _after_num_rounds, std::function<void(Pokemon &, Pokemon &)> _action){
+            action = _action;
+            for_num_rounds = _for_num_rounds;
+            after_num_rounds = _after_num_rounds;
+            if(_for_num_rounds>0)newly_added = true;
+            else newly_added = false;
         }
 
         ~Ability(){
@@ -60,6 +72,9 @@ class Ability{
 
     // ------------------- Getters -------------------
     char*   getName()       {return name;}
+    int     getFnr()        {return for_num_rounds;}
+    int     getAnr()        {return after_num_rounds;}
+    void    setName(char* _name) {strcpy(name, _name);}
 
     // ------------------- Functions -------------------
     void do_action(Pokemon &attacker, Pokemon &defender){
