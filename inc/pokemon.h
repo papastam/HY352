@@ -78,6 +78,7 @@ class Pokemon {
             in_pokeball = true;
             abilities = Array<Ability>();
             damage_pending = false;
+            round = 0;
         }
         
         Pokemon(){
@@ -88,6 +89,7 @@ class Pokemon {
             in_pokeball = true;
             abilities = Array<Ability>();
             damage_pending = false;
+            round = 0;
         }
 
         // Destructor
