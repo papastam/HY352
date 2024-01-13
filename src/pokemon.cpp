@@ -39,8 +39,8 @@ BEGIN_GAME
                     SHOW "Defender is now bleeding from the punch\n"
                     FOR 3 ROUNDS DO
                         SHOW "Damaged 5 HP"
-                        DAMAGE DEFENDER 5
-                    END
+                DAMAGE DEFENDER 5
+                END
                 END
             END
         },
@@ -49,10 +49,10 @@ BEGIN_GAME
             ACTION: START
                 SHOW "Damage 10HP and 5HP for 5 rounds"
                 DAMAGE DEFENDER 10
-                FOR 5 ROUNDS DO
+                FOR 5 ROUNDS DO 
                     DAMAGE DEFENDER 10
                 END
-            END
+                END
         },
         ABILITY{
             NAME: "Heal",
@@ -66,10 +66,10 @@ BEGIN_GAME
             ACTION: START
                 SHOW "Store in Pokeball for 3 rounds"
                 POKEBALL DEFENDER _
-                AFTER 3 ROUNDS DO
+                AFTER 3 ROUNDS DO 
                     POKEBALL DEFENDER ---α
                 END
-            END
+                        END
         },
         ABILITY{
             NAME: "Thunder",
