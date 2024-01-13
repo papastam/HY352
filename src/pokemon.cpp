@@ -10,7 +10,7 @@ BEGIN_GAME
         POKEMON{
             NAME: "Bis",
             TYPE: "Grass",
-            HP: 10
+            HP: 60
         },
         POKEMON{
             NAME: "Oiko",
