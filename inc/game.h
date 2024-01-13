@@ -2,6 +2,7 @@
 #include "ability.h"
 #include <assert.h>
 #include <cmath>
+#include <string>
 
 #pragma once
 
@@ -118,7 +119,7 @@ class Game{
                     return *pokemons[i];
                 }
             }
-            error("Pokemon not found");
+            error("Pokemon %s not found", name);
             exit(0);
         }
 
@@ -128,7 +129,7 @@ class Game{
                     return *pokemons[i];
                 }
             }
-            error("Pokemon not found");
+            error("Pokemon %s not found", name);            
             exit(0);
         }
 
@@ -238,6 +239,7 @@ class Game{
         // -------------------- Functions for Duel -------------------
 
         char* select_pokemon(int player_num) {
+            std::string temp_sel_name;
             char* selected_name = new char[20];
             bool to_trollare = false;
             while(1){
@@ -251,7 +253,8 @@ class Game{
                     std::cout << Colors.red << Colors.bold << "Pokemon does not exist," << Colors.reset << " select a pokemon:";
                 else
                     std::cout << "Pokemon name: ";
-                std::cin >> selected_name;
+                std::getline(std::cin, temp_sel_name);
+                strcpy(selected_name, temp_sel_name.c_str());
                 if(!pokemon_exists(selected_name))
                     to_trollare=true;
                 else

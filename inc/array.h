@@ -62,7 +62,7 @@ template<class T> class Array {
                     return *arr[i];
                 }
             }
-            error("Pokemon not found");
+            error("Element %s not found in the array", name);
             exit(0);
         }
 

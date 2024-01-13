@@ -3,7 +3,7 @@
 BEGIN_GAME
     CREATE POKEMONS[
         POKEMON{
-            NAME: "Papastam",
+            NAME: "Papastam GOD",
             TYPE: "Electric",
             HP: 1000
         },
@@ -35,6 +35,13 @@ BEGIN_GAME
             ACTION: START
                 SHOW "Damaged 50 HP"
                 DAMAGE DEFENDER 50
+                AFTER 3 ROUNDS DO
+                    SHOW "Defender is now bleeding from the punch\n"
+                    FOR 3 ROUNDS DO
+                        SHOW "Damaged 5 HP"
+                        DAMAGE DEFENDER 5
+                    END
+                END
             END
         },
         ABILITY{
@@ -99,7 +106,7 @@ BEGIN_GAME
         }
     ]
 
-    DEAR "Papastam" LEARN[
+    DEAR "Papastam GOD" LEARN[
         ABILITY_NAME("Punch"),
         ABILITY_NAME("Poison"),
         ABILITY_NAME("Heal"),
