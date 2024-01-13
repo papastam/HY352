@@ -14,6 +14,12 @@
         - [Conditions](#conditions)
     - [Ability Assignment](#ability-assignment)
     - [Printing](#printing)
+- [Under the hood](#under-the-hood)
+    - [Object Structure](#object-structure)
+        - [Array\<T\>](#arrayt)
+        - [Game](#game)
+        - [Pokemon](#pokemon)
+        - [Ability](#ability)
 - [Running the game](#running-the-game)
     - [How to run](#how-to-run)
     - [Running the included testfile](#running-the-included-testfile)
@@ -193,6 +199,31 @@ The user can print a message using the following syntax:
 ```c++
 SHOW "<message>"
 ```
+
+## Under the hood
+The language is mainly implemented using the C++ preprocessor. Using C++ defines and macros, we created a language that is compiled to C++ code. The preprocessor is used to replace the keywords with the appropriate C++ code. The C++ code is then compiled and executed.
+
+Under the C++ macros the code uses objects to represent the game, the pokemons and their abilities. Many opperators of these objects (such as `+`, `-`, `+=`, `--`, `=`, `<<`, `,`and `[]`) were overloaded to achueve the desired keyword syntax.
+
+### Object Structure
+#### Array\<T\>
+The `Array<T>` class is used to represent an array of objects of type `T`. The class contains an array of pointers to objects of type `T` and a `count` variable that represents the number of objects in the array. The insertion and deletion of objects in the array is done using the `.add()` and `.remove_and_rearrange()` functions respectively. The class also contains an overloaded `[]` operator that is used to access the objects in the array.
+
+#### Game
+The game object is represented by the `Game` class. The game object contains an [Array](#arrayt) of pokemons and an [Array](#arrayt) of abilities. 
+
+Operators such as `+=` are overloaded to allow the user to add pokemons and abilities to the game. The `<<` operator is overloaded to allow the user to print messages. The `DUEL` part of the game also happens in the `.duel()` function.
+
+#### Pokemon
+The pokemon object is represented by the `Pokemon` class. The pokemon object contains a name, a type, an HP and an [Array](#arrayt) of abilities. Each pokemon also contains an [Array](#Arrayt) of pending/recuring actions that are executed after a specified number of rounds.
+
+The `<<` operator is overloaded to allow the user to print messages. The `+` operator is overloaded to allow the user to heal/damage the pokemon and to preform Pokeball actions. The `+=` operator is overloaded to allow the user to add abilities to the pokemon. 
+
+
+#### Ability
+The ability object is represented by the `Ability` class. The ability object contains a name, and an action. The action is a lambda function that is executed when the ability is used. Also a count of the number of rounds that the ability has been used is stored and a count of the number of rounds that the ability has to wait to be activated.
+
+The `<<` operator is overloaded to allow the user to print messages. The `+=` operator is overloaded to allow the language to assign a function to the ability after construction.
 
 ## Running the game
 The user can start a duel using the `DUEL` KEYWORD. 
