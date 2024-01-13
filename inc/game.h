@@ -179,8 +179,8 @@ class Game{
                 defender->setRound(round);
 
                 std::cout << Colors.bold << Colors.bg_yellow << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << Colors.reset <<  std::endl;
-                std::cout << Colors.bold << Colors.bg_yellow << "           Round " << round << "             " << Colors.reset << std::endl;
-                std::cout << Colors.bold << Colors.bg_yellow << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << Colors.reset << std::endl;
+                printf("%s%s          Round %-15d%s\n", Colors.bold, Colors.bg_yellow, round, Colors.reset); 
+                std::cout << Colors.bold << Colors.bg_yellow << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << Colors.reset << std::endl << std::endl;
                 
                 for(int i = 0; i < 2; i++) {
                     // add 5% of max hp to attacker if type is grass and round is even
@@ -270,12 +270,11 @@ class Game{
                 color = Colors.magenta;
 
             if(attacker->isInPokeball()){
-                    std::cout << Colors.red << attacker->getName() << " is in pokeball and cannot attack" << Colors.reset << std::endl;
+                    std::cout << Colors.red << attacker->getName() << " is in pokeball and cannot attack" << Colors.reset ;
             }else{
                 //6. Action is performed
                 bool to_trollare = false;
                 while(1){
-                    std::cout << std::endl;
                     std::cout << color << attacker->getName() << " select an ability:" << Colors.reset << std::endl;
                     std::cout << "--------------------" << std::endl;
                     std::cout << attacker->getAbilities();
@@ -338,7 +337,7 @@ class Game{
             printf("%sName : %-22s%s\n", colora, attacker->getName(), Colors.reset);
             printf("%sHP : %-24d%s\n", colora, attacker->getHp(), Colors.reset);
             if(attacker->isInPokeball())
-                printf("%s%sPokemon is in Pokeball      %s\n", colora, Colors.red, Colors.reset);
+                printf("%s%s%sPokemon is in Pokeball       %s\n",Colors.red, Colors.bold,  colora,  Colors.reset);
             else
                 printf("%sPokemon is out of Pokeball   %s\n", colora, Colors.reset);
             std::cout << colora << "#############################" << Colors.reset << std::endl;
@@ -348,7 +347,7 @@ class Game{
             printf("%sName : %-22s%s\n", colord, defender->getName(), Colors.reset);
             printf("%sHP : %-24d%s\n", colord, defender->getHp(), Colors.reset);
             if(defender->isInPokeball())
-                printf("%s%sPokemon is in Pokeball      %s\n", colord, Colors.red, Colors.reset);
+                printf("%s%s%sPokemon is in Pokeball       %s\n",Colors.red, Colors.bold,  colord,  Colors.reset);
             else
                 printf("%sPokemon is out of Pokeball   %s\n", colord, Colors.reset);
             std::cout << colord << "#############################" << Colors.reset << std::endl << std::endl;

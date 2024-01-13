@@ -24,6 +24,7 @@ void error(const char* format, ...){
 
 struct TermColors{
     const char* reset = "\033[0m";
+    const char* black = "\033[0;30m";
     const char* red = "\033[0;31m";
     const char* green = "\033[0;32m";
     const char* yellow = "\033[0;33m";
