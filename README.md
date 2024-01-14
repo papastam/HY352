@@ -38,7 +38,7 @@ For the purpose of this project, we created teams of two. The team consisted of 
 ## Language Syntax
 
 ### Game Creation
-First of all, the game must be included in the `.cpp` file by including the [`inc/gramar.h`](inc/grammar.h) header file. Depending on the location of the file, the user can include the header file using the following syntax:
+First of all, the game must be included in the `.cpp` file by including the [`inc/grammar.h`](inc/grammar.h) header file. Depending on the location of the file, the user can include the header file using the following syntax:
 ```c++
 #include "inc/grammar.h"
 ```
