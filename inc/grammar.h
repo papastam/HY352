@@ -90,8 +90,8 @@ bool operator--(PokeballType value)
 // END
 #define IF ;if( 
 #define DO ){
-#define ELSE } else {
-#define ELSE_IF } else if(
+#define ELSE PRE_EXEC } else {
+#define ELSE_IF PRE_EXEC } else if(
 // #define END ;}} already defined
 
 // Loops
@@ -115,5 +115,3 @@ bool operator--(PokeballType value)
 // Print
 // SHOW GET_NAME(ATTACKER) 
 #define SHOW PRE_EXEC std::cout <<
-
-#define PRINT_HW std::cout << "O papastamos gamietai" << std::endl;

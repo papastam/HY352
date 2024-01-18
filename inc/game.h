@@ -273,7 +273,7 @@ class Game{
                 color = Colors.magenta;
 
             if(attacker->isInPokeball()){
-                    std::cout << Colors.red << attacker->getName() << " is in pokeball and cannot attack" << Colors.reset ;
+                    std::cout << Colors.red << attacker->getName() << " is in pokeball and cannot attack" << Colors.reset << std::endl;
             }else{
                 //6. Action is performed
                 bool to_trollare = false;
@@ -335,7 +335,7 @@ class Game{
                 colord = Colors.bg_green;
             }
             
-            std::cout << std::endl << std::endl;
+            std::cout << std::endl;
             std::cout << colora << "#############################" << Colors.reset << std::endl;
             printf("%sName : %-22s%s\n", colora, attacker->getName(), Colors.reset);
             printf("%sHP : %-24d%s\n", colora, attacker->getHp(), Colors.reset);

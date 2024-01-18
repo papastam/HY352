@@ -33,12 +33,12 @@ BEGIN_GAME
         ABILITY{
             NAME: "Punch",
             ACTION: START
-                SHOW "Damaged 50 HP"
+                SHOW "Damaged 50 HP\n"
                 DAMAGE DEFENDER 50
                 AFTER 3 ROUNDS DO
                     SHOW "Defender is now bleeding from the punch\n"
                     FOR 3 ROUNDS DO
-                        SHOW "Damaged 5 HP"
+                        SHOW "Damaged 5 HP\n"
                         DAMAGE DEFENDER 5
                     END
                 END
@@ -47,7 +47,7 @@ BEGIN_GAME
         ABILITY{
             NAME: "Poison",
             ACTION: START
-                SHOW "Damage 10HP and 5HP for 5 rounds"
+                SHOW "Damage 10HP and 5HP for 5 rounds\n"
                 DAMAGE DEFENDER 10
                 FOR 5 ROUNDS DO
                     DAMAGE DEFENDER 10
@@ -57,14 +57,14 @@ BEGIN_GAME
         ABILITY{
             NAME: "Heal",
             ACTION: START
-                SHOW "Heal 30HP"
+                SHOW "Heal 30HP\n"
                 HEAL ATTACKER 30
             END
         },
         ABILITY{
             NAME: "Confront",
             ACTION: START
-                SHOW "Store in Pokeball for 3 rounds"
+                SHOW "Store in Pokeball for 3 rounds\n"
                 POKEBALL DEFENDER _
                 AFTER 3 ROUNDS DO
                     POKEBALL DEFENDER ---α
@@ -74,8 +74,8 @@ BEGIN_GAME
         ABILITY{
             NAME: "Thunder",
             ACTION: START
-                IF AND(GET_TYPE(ATTACKER) == "Electric", GET_HP(ATTACKER) > 20) DO
-                    SHOW "DAAMAGED 100 HP"
+                IF AND(GET_TYPE(ATTACKER) == "Electric", GET_HP(ATTACKER) > 200) DO
+                    SHOW "DAAMAGED 100 HP\n"
                     DAMAGE DEFENDER 100
                 END
             END
@@ -83,7 +83,7 @@ BEGIN_GAME
         ABILITY{
             NAME: "SelfStab",
             ACTION: START
-                SHOW "Damaged 3 HP for 5 rounds"
+                SHOW "Damaged 3 HP for 5 rounds\n"
                 FOR 5 ROUNDS DO
                     DAMAGE ATTACKER 3
                 END
@@ -93,7 +93,7 @@ BEGIN_GAME
             NAME: "Execute",
             ACTION: START
                 IF GET_HP(DEFENDER) < 50 DO
-                    SHOW "You are dead"
+                    SHOW "You are dead\n"
                     DAMAGE DEFENDER 10000000
                 END
             END
@@ -101,7 +101,7 @@ BEGIN_GAME
         ABILITY{
             NAME: "Skip",
             ACTION: START
-            SHOW "Skiped turn"
+            SHOW "Skiped turn\n"
             END
         }
     ]
@@ -110,6 +110,7 @@ BEGIN_GAME
         ABILITY_NAME("Punch"),
         ABILITY_NAME("Poison"),
         ABILITY_NAME("Heal"),
+        ABILITY_NAME("Thunder"),
         ABILITY_NAME("Confront"),
         ABILITY_NAME("Execute"),
         ABILITY_NAME("Skip")
